@@ -1,0 +1,3 @@
+
+ksquid:S4488"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(äÝØ¸øÿÿÿÿ8ÛÕµÃÆ-
+zsquid:UselessImportCheck"ORemove this unused import 'org.springframework.web.bind.annotation.GetMapping'.(‡¡‰Ø8¢ù´ÃÆ-

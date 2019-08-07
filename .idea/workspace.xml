@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="" />
+    <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/FeignConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/FeignConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/czort/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/czort/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/czort/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/czort/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/new/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new/src/main/java/czort/NewApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/new/src/main/java/czort/NewApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new/src/main/java/czort/feature/NewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/new/src/main/java/czort/feature/NewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/old/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/src/main/java/czort/OldApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/czort/OldApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/src/main/java/czort/feature/OldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/czort/feature/OldController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/target/classes/czort/OldApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/czort/OldApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/target/classes/czort/feature/OldController.class" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/czort/feature/OldController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/czort/contract/UserContract.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/czort/contract/UserContract.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -19,6 +55,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -27,6 +66,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1P3vSGIFkFsoymyYQxvzHrzGEIO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -34,9 +74,11 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/visualvm_142/bin/visualvm.exe" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -61,7 +103,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OldApplication">
+  <component name="RunManager" selected="JUnit.OldControllerTest">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -70,6 +112,22 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OldControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="old" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="czort.feature.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="czort.feature" />
+      <option name="MAIN_CLASS_NAME" value="czort.feature.OldControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -121,6 +179,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OldControllerTest" />
         <item itemvalue="Spring Boot.OldApplication" />
       </list>
     </recent_temporary>
@@ -133,7 +192,7 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2be25782" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5399f9a4" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -151,23 +210,28 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1565115592688</updated>
-      <workItem from="1565115596956" duration="4756000" />
+      <workItem from="1565115596956" duration="4907000" />
+      <workItem from="1565122184245" duration="685000" />
+      <workItem from="1565196113475" duration="64000" />
+      <workItem from="1565201824436" duration="4837000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/old/src/main/java/czort/OldApplication.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">

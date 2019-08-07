@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
@@ -18,8 +19,8 @@ public class NewApplication {
         SpringApplication.run(NewApplication.class, args);
     }
 
-    @EventListener(ApplicationStartedEvent.class)
-    public void onInit(ApplicationStartedEvent event) {
+    @EventListener(ApplicationStartingEvent.class)
+    public void onInit(ApplicationStartingEvent event) {
         userRepository.save(new UserEntity("bob", "bob@wp.pl"));
     }
 }

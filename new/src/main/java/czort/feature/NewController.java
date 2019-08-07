@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class NewController implements UserContract {
+public class NewController  {
 
     private final UserRepository userRepository;
 
