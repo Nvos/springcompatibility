@@ -1,11 +1,17 @@
 package czort.feature;
 
+import com.google.common.collect.Lists;
 import czort.client.UserClient;
+import czort.response.UserResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -16,11 +22,21 @@ public class OldControllerTest {
 
     @Test
     public void smrth() {
-        userClient.findAll();
+//        userClient.findAll();
+        UserResponse response = new UserResponse(null, "oldbob", "oldbob@wp.pl");
+        List<UserResponse> body = userClient.findAll().getBody();
+        assertThat(body).hasSizeGreaterThan(0);
+        assertThat(body).usingRecursiveFieldByFieldElementComparator()
+                .usingElementComparatorOnFields("name", "email")
+            .contains(response);
     }
 
     @Test
     public void smrth1() {
-        userClient.find(1);
+        UserResponse response = new UserResponse(null, "oldbob", "oldbob@wp.pl");
+
+        assertThat(response).usingRecursiveComparison()
+                .ignoringActualNullFields()
+                .isEqualTo(userClient.find(1).getBody());
     }
 }

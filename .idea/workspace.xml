@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/FeignConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/FeignConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/czort/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/czort/entity/UserEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/czort/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/czort/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/new/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/src/main/java/czort/NewApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/new/src/main/java/czort/NewApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/src/main/java/czort/feature/NewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/new/src/main/java/czort/feature/NewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/old/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/old/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/src/main/java/czort/OldApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/czort/OldApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/src/main/java/czort/feature/OldController.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/java/czort/feature/OldController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/target/classes/czort/OldApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/czort/OldApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/target/classes/czort/feature/OldController.class" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/czort/feature/OldController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/src/test/java/czort/feature/OldControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/test/java/czort/feature/OldControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/czort/contract/UserContract.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/czort/contract/UserContract.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/response/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/response/UserResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -132,6 +117,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OldControllerTest.smrth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="old" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="czort.feature.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="czort.feature" />
+      <option name="MAIN_CLASS_NAME" value="czort.feature.OldControllerTest" />
+      <option name="METHOD_NAME" value="smrth" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -180,6 +182,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.OldControllerTest" />
+        <item itemvalue="JUnit.OldControllerTest.smrth" />
         <item itemvalue="Spring Boot.OldApplication" />
       </list>
     </recent_temporary>
@@ -213,7 +216,7 @@
       <workItem from="1565115596956" duration="4907000" />
       <workItem from="1565122184245" duration="685000" />
       <workItem from="1565196113475" duration="64000" />
-      <workItem from="1565201824436" duration="4837000" />
+      <workItem from="1565201824436" duration="7941000" />
     </task>
     <servers />
   </component>
