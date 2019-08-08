@@ -6,9 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="old" />
+        <module name="root" />
         <module name="common" />
+        <module name="old" />
+        <module name="shared" />
         <module name="new" />
+        <module name="admin" />
+        <module name="user" />
         <module name="client" />
         <module name="transport" />
       </profile>

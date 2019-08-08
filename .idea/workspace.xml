@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/1/21d156d4070a1b868b61e0a5c8fe4b67bc09fc41" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/1/21d156d4070a1b868b61e0a5c8fe4b67bc09fc41" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/65a91c0f01ec3cd70951176102b1037232243c73" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/65a91c0f01ec3cd70951176102b1037232243c73" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/c/6cb9c4674d672fa9d3d9eb4fa6aa16d7f4a985b9" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/c/6cb9c4674d672fa9d3d9eb4fa6aa16d7f4a985b9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/1/a122cd552789967b8d5a568e9fc50b45f7935ed8" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/1/a122cd552789967b8d5a568e9fc50b45f7935ed8" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/old/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/src/test/java/czort/feature/OldControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/test/java/czort/feature/OldControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/response/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/response/UserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/transport/target/classes/czort/response/UserResponse.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,13 +68,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/shared/src/main/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cptco\dev\vaadin-poc\springcompatibility\frontend\shared\webapp\VAADIN\themes" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cptco\dev\vaadin-poc\springcompatibility\frontend\shared\src\main\resources" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -88,7 +101,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OldControllerTest">
+  <component name="RunManager" selected="Spring Boot.RootApplication">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -152,11 +165,18 @@
       <module name="old" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="czort.*" />
+          <option name="PATTERN" value="czort.menu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="czort.OldApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RootApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="root" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="czort.RootApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -195,7 +215,7 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5399f9a4" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54b990ce" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -216,7 +236,8 @@
       <workItem from="1565115596956" duration="4907000" />
       <workItem from="1565122184245" duration="685000" />
       <workItem from="1565196113475" duration="64000" />
-      <workItem from="1565201824436" duration="7941000" />
+      <workItem from="1565201824436" duration="8583000" />
+      <workItem from="1565287766220" duration="11724000" />
     </task>
     <servers />
   </component>
@@ -235,6 +256,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">

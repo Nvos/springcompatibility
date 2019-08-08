@@ -31,3 +31,8 @@ b
 2old/src/main/java/czort/feature/OldController.java,5\5\553b144f7c47759128b28c9f9ec0ca3015ec070f
 ;
 old/pom.xml,2\e\2ec683f4fd9f96b3f89830c0d7afb38b402784d7
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+f
+6old/src/test/java/czort/feature/OldControllerTest.java,9\5\957a02abf060f127c72ca6eb312c16c3f5f16a1f
