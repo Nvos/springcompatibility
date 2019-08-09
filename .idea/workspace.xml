@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/META-INF/common.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/admin/src/main/java/czort/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/admin/src/main/java/czort/view/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/root/src/main/java/czort/RootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/root/src/main/java/czort/RootApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/target/classes/czort/NewApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/new/target/classes/czort/NewApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new/target/classes/czort/feature/NewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/new/target/classes/czort/feature/NewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/old/target/test-classes/META-INF/old.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +228,7 @@
       <workItem from="1565196113475" duration="64000" />
       <workItem from="1565201824436" duration="8583000" />
       <workItem from="1565287766220" duration="11816000" />
-      <workItem from="1565372428397" duration="9401000" />
+      <workItem from="1565372428397" duration="10005000" />
     </task>
     <servers />
   </component>
