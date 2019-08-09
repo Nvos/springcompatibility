@@ -11,10 +11,10 @@
         <module name="old" />
         <module name="shared" />
         <module name="new" />
-        <module name="admin" />
         <module name="user" />
-        <module name="client" />
         <module name="transport" />
+        <module name="client" />
+        <module name="admin" />
       </profile>
     </annotationProcessing>
   </component>

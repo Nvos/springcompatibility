@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserContract {
 
-    @GetMapping("/user")
+    @GetMapping(value = "/user", produces = "application/json")
     public ResponseEntity<List<UserResponse>> findAll();
 
     @GetMapping("/user/{id}")

@@ -1,0 +1,9 @@
+
+Ssquid:S1172J"0Remove this unused method parameter "alignment".(ßÿ÷êúÿÿÿÿ8…•º—Ç-
+qsquid:MaximumInheritanceDepthS"<This class has 7 parents which is greater than 5 authorized.(ÕïïÜûÿÿÿÿ8¨¶•–Ç-
+qsquid:MaximumInheritanceDepth0"<This class has 6 parents which is greater than 5 authorized.(«ÅôÏþÿÿÿÿ8¨¶•–Ç-
+qsquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(Ç´˜³üÿÿÿÿ8ž÷õ”Ç-
+}squid:UselessImportCheck"MRemove this unused import 'org.springframework.beans.factory.ObjectProvider'.(ùÚÕ£ùÿÿÿÿ8Þ”Ì–Ç-
+Nsquid:S2160"+Override the "equals" method in this class.(Ç´˜³üÿÿÿÿ8‡È—•Ç-
+xsquid:UselessImportCheck"HRemove this unused import 'org.vaadin.spring.annotation.PrototypeScope'.(Žïžþÿÿÿÿ8«‰×–Ç-
+tsquid:UselessImportCheck"IRemove this unused import 'com.vaadin.spring.annotation.SpringComponent'.(Œ§õ‰8«‰×–Ç-

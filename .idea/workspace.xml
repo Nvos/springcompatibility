@@ -3,16 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="548572f1-8795-447a-8a52-28fefbfc61b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/1/21d156d4070a1b868b61e0a5c8fe4b67bc09fc41" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/1/21d156d4070a1b868b61e0a5c8fe4b67bc09fc41" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/5/553b144f7c47759128b28c9f9ec0ca3015ec070f" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/65a91c0f01ec3cd70951176102b1037232243c73" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/5/65a91c0f01ec3cd70951176102b1037232243c73" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/c/6cb9c4674d672fa9d3d9eb4fa6aa16d7f4a985b9" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/c/6cb9c4674d672fa9d3d9eb4fa6aa16d7f4a985b9" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/1/a122cd552789967b8d5a568e9fc50b45f7935ed8" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/1/a122cd552789967b8d5a568e9fc50b45f7935ed8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/czort/client/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/czort/client/UserClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/META-INF/common.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/admin/src/main/java/czort/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/admin/src/main/java/czort/view/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/root/src/main/java/czort/RootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/root/src/main/java/czort/RootApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new/target/classes/czort/NewApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/new/target/classes/czort/NewApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new/target/classes/czort/feature/NewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/new/target/classes/czort/feature/NewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/old/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/old/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/target/test-classes/META-INF/old.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/transport/src/main/java/czort/contract/UserContract.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +107,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.RootApplication">
+  <component name="RunManager" selected="Spring Boot.OldApplication">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -201,21 +207,21 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.OldApplication" />
         <item itemvalue="JUnit.OldControllerTest" />
         <item itemvalue="JUnit.OldControllerTest.smrth" />
-        <item itemvalue="Spring Boot.OldApplication" />
       </list>
     </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
       <serviceView>
-        <option name="contentProportion" value="0.11208311" />
+        <option name="contentProportion" value="0.15800984" />
         <treeState>
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@54b990ce" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3a2eee66" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -237,7 +243,8 @@
       <workItem from="1565122184245" duration="685000" />
       <workItem from="1565196113475" duration="64000" />
       <workItem from="1565201824436" duration="8583000" />
-      <workItem from="1565287766220" duration="11724000" />
+      <workItem from="1565287766220" duration="11816000" />
+      <workItem from="1565372428397" duration="9401000" />
     </task>
     <servers />
   </component>
@@ -256,17 +263,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/frontend/shared/src/main/java/czort/dialog/BaseDialog.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">
