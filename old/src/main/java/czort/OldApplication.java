@@ -22,6 +22,8 @@ public class OldApplication {
 
     @EventListener(ContextRefreshedEvent.class)
     public void onInit(ContextRefreshedEvent event) {
-        userRepository.save(new UserEntity("oldbob", "oldbob@wp.pl"));
+        for(int i = 0; i < 1000; i++) {
+            userRepository.save(new UserEntity("oldbob" + i, "oldbob@wp.pl" + i));
+        }
     }
 }

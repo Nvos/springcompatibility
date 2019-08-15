@@ -6,11 +6,10 @@ import czort.entity.UserEntity;
 import czort.repository.UserRepository;
 import czort.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,22 +27,21 @@ public class OldController implements UserContract {
 //        this.userClient = userClient;
     }
 
-    public ResponseEntity<List<UserResponse>> findAll() {
-        List<UserResponse> own = userRepository.findAll()
-                .stream()
-                .map(it -> new UserResponse(it.getId(), it.getName(), it.getEmail()))
-                .collect(Collectors.toList());
-
-//        ResponseEntity<List<UserResponse>> remote = userClient.findAll();
-
-//        own.addAll(remote.getBody());
+    public ResponseEntity<Page<UserResponse>> findAll(Pageable pageable) {
+        System.out.println(pageable.toString());
+        Page<UserResponse> own = userRepository.findAll(pageable)
+                .map(it -> new UserResponse(it.getId(), it.getName(), it.getEmail()));
 
         return ResponseEntity.ok(own);
     }
 
+    @Override
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.ok(userRepository.count());
+    }
+
     public ResponseEntity<UserResponse> find(@PathVariable("id") Integer id) {
         UserEntity one = userRepository.findOne(id);
-
         return ResponseEntity.ok(new UserResponse(one.getId(), one.getName(), one.getEmail()));
     }
 }

@@ -1,7 +1,0 @@
-
-Nsquid:S2160"+Override the "equals" method in this class.(ß´ºúúÿÿÿÿ8åı¥–Ç-
-Osquid:S1068",Remove this unused "mainMenu" private field.(ƒ³şÿÿÿÿ8÷™ï”Ç-
-qsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ß´ºúúÿÿÿÿ8åı¥–Ç-
-vsquid:UselessImportCheck"KRemove this unused import 'com.vaadin.spring.annotation.SpringViewDisplay'.(µ¢î8î¶¨–Ç-
-Ÿsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(éÇ÷—8÷™ï”Ç-
-_squid:UselessImportCheck"/Remove this unused import 'com.vaadin.ui.Grid'.(Şã¿øüÿÿÿÿ8÷™ï”Ç-

@@ -1,6 +1,0 @@
-
-zsquid:UselessImportCheck"JRemove this unused import 'org.springframework.beans.factory.BeanFactory'.(ÐÚû±ýÿÿÿÿ8ÚÜÒ–Ç-
-qsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(ÓñŠ’üÿÿÿÿ8ÝÐ®–Ç-
-Nsquid:S2160"+Override the "equals" method in this class.(ÓñŠ’üÿÿÿÿ8ÈŽÒ–Ç-
-Qsquid:S1611"3Remove the parentheses around the "event" parameter(µÀÜÊ8ÚÔ–Ç-
-Jsquid:S1602",Remove useless curly braces around statement(µÀÜÊ8“„Ô–Ç-

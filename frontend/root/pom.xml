@@ -22,5 +22,10 @@
             <artifactId>user</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+            <dependency>
+                <groupId>czort</groupId>
+                <artifactId>shared</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
     </dependencies>
 </project>

@@ -11,7 +11,24 @@
 
     <artifactId>admin</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.vaadin.artur</groupId>
+            <artifactId>spring-data-provider</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+            <dependency>
+                <groupId>czort</groupId>
+                <artifactId>shared</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
 <!--    <build>-->
 <!--        <resources>-->
 <!--            <resource>-->

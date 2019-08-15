@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -24,9 +26,9 @@ public class OldControllerTest {
     public void smrth() {
 //        userClient.findAll();
         UserResponse response = new UserResponse(null, "oldbob", "oldbob@wp.pl");
-        List<UserResponse> body = userClient.findAll().getBody();
-        assertThat(body).hasSizeGreaterThan(0);
-        assertThat(body).usingRecursiveFieldByFieldElementComparator()
+        Page<UserResponse> body = userClient.findAll(new PageRequest(0, 20)).getBody();
+        assertThat(body.getContent()).hasSizeGreaterThan(0);
+        assertThat(body.getContent()).usingRecursiveFieldByFieldElementComparator()
                 .usingElementComparatorOnFields("name", "email")
             .contains(response);
     }

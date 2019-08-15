@@ -20,7 +20,7 @@ public class MainFormDialog extends FormDialog<Model> {
     @Override
     protected HasComponents body(Model model) {
         System.out.println(model);
-        System.out.println(userClient.findAll());
+//        System.out.println(userClient.findAll());
         return new VerticalLayout();
     }
 }
