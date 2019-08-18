@@ -7,10 +7,11 @@ import org.vaadin.spring.annotation.PrototypeScope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @SpringComponent
 @PrototypeScope
-final public class ActionDialog extends BaseDialog<BaseDialogFooter> {
+final public class ActionDialog extends BaseDialog<ActionDialog.ActionDialogFooter> {
 
     private final ObjectProvider<ActionDialog> provider;
     private final List<Component> bodyComponents;
@@ -21,11 +22,10 @@ final public class ActionDialog extends BaseDialog<BaseDialogFooter> {
     }
 
     @Override
-    protected HasComponents bodyComponent() {
-        VerticalLayout body = new VerticalLayout();
-        bodyComponents.forEach(body::addComponent);
+    public ActionDialog useFooterComponent(Consumer<ActionDialogFooter> withProvidedFooterComponent) {
+        super.useFooterComponent(withProvidedFooterComponent);
 
-        return body;
+        return this;
     }
 
     public ActionDialog withComponent(Component component) {
@@ -40,25 +40,79 @@ final public class ActionDialog extends BaseDialog<BaseDialogFooter> {
         return this;
     }
 
-    public ActionDialog openAlert(String caption, String description, Button.ClickListener onAcceptClick) {
-        Label descriptionLabel = new Label(description);
-        Button acceptButton = new Button("Accept", onAcceptClick);
-        Button cancelButton = new Button("Cancel");
+    @Override
+    protected HasComponents bodyComponent() {
+        VerticalLayout body = new VerticalLayout();
+        bodyComponents.forEach(body::addComponent);
 
+        return body;
+    }
 
-        Window open = provider.getIfUnique()
-                .withComponent(descriptionLabel)
+    @Override
+    protected ActionDialogFooter footerComponent() {
+        return new ActionDialogFooter();
+    }
+
+    public ActionDialog openAlert(String caption, String description, Consumer<Result> onAcceptClick) {
+        provider.getIfUnique()
+                .withComponent(new Label(description))
                 .withCaption(caption)
-                .useFooterComponent(footerComponent -> {
-                    footerComponent.withButtonRight(acceptButton);
-                    footerComponent.withButtonRight(cancelButton);
-                })
+                .useFooterComponent(footerComponent -> footerComponent
+                        .withAcceptButton(onAcceptClick)
+                        .withCancelButton()
+                )
                 .open();
 
-        acceptButton.addClickListener(event -> open.close());
-        cancelButton.addClickListener(event -> open.close());
-
-
         return this;
+    }
+
+    public class ActionDialogFooter extends BaseDialogFooter {
+        private Button acceptButton;
+        private Button cancelButton;
+
+        public ActionDialogFooter withAcceptButton(Consumer<Result> onClick) {
+            if (acceptButton != null) this.removeComponent(acceptButton);
+
+            acceptButton = new Button("Accept");
+            acceptButton.addClickListener(event -> {
+                onClick.accept(Result.ACCEPT);
+                close();
+            });
+            withButtonRight(acceptButton);
+
+            return this;
+        }
+
+        public ActionDialogFooter withCancelButton(Consumer<Result> onClick) {
+            if (cancelButton != null) this.removeComponent(cancelButton);
+
+            cancelButton = new Button("Cancel");
+            cancelButton.addClickListener(event -> {
+                close();
+                onClick.accept(Result.CANCEL);
+            });
+
+            withButtonRight(cancelButton);
+
+            return this;
+        }
+
+        public ActionDialogFooter withCancelButton() {
+            if (cancelButton != null) this.removeComponent(cancelButton);
+
+            cancelButton = new Button("Cancel");
+            cancelButton.addClickListener(event -> {
+                close();
+            });
+
+            withButtonRight(cancelButton);
+
+            return this;
+        }
+    }
+
+    public enum Result {
+        ACCEPT,
+        CANCEL
     }
 }
