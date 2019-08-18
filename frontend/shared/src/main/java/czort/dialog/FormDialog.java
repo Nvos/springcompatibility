@@ -5,6 +5,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.Window;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 import java.util.Objects;
@@ -15,6 +16,9 @@ import java.util.function.Consumer;
 public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialogFooter> {
 
     private MODEL model;
+
+    @Autowired
+    private ActionDialog actionDialog;
 
     @Override
     public Window open() {
@@ -74,7 +78,6 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
 
             acceptButton = new Button("Accept");
             acceptButton.addClickListener(event -> onClick.accept(model));
-            acceptButton.setComponentError(new UserError("WTF"));
             withButtonRight(acceptButton);
 
             return this;
@@ -84,7 +87,7 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
             if (cancelButton != null) this.removeComponent(cancelButton);
 
             cancelButton = new Button("Cancel");
-            cancelButton.addClickListener(event -> onClick.accept(model));
+            withCancelClickListener(event -> onClick.accept(model));
             withButtonRight(cancelButton);
 
             return this;
@@ -99,7 +102,13 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
 
         public FormDialogFooter withCancelClickListener(Consumer<MODEL> onClick) {
             Objects.requireNonNull(cancelButton);
-            cancelButton.addClickListener(it -> onClick.accept(model));
+            cancelButton.addClickListener(it -> {
+                actionDialog.openAlert("Alert", "Do you want to save?", event -> {
+                    close();
+                    onClick.accept(model);
+                    System.out.println("Yes click.");
+                });
+            });
 
             return this;
         }

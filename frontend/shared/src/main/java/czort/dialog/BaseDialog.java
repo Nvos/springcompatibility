@@ -19,6 +19,11 @@ public abstract class BaseDialog<FOOTER extends Footer> extends Window {
         if (!this.isAttached()) {
             buildFromRoot();
 
+            setModal(true);
+            setResizable(false);
+            setResponsive(false);
+            setClosable(false);
+
             Objects.requireNonNull(bodyComponent);
             Objects.requireNonNull(footerComponent);
 
