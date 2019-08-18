@@ -9,8 +9,9 @@ $app-background-gradient: unquote("linear-gradient(145deg, #484962 30%, #d06b41 
 
   .v-errorindicator {
     // Only show validation errors using field styles
-    display: none;
+    //display: none;
   }
+
   .Vaadin-Icons {
     // Make Vaadin Icons behave exactly like FontAwesome
     font-style: normal;

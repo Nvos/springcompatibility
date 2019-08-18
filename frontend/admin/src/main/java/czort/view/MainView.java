@@ -5,6 +5,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import czort.dialog.BaseDialog;
 import czort.dialog.FormDialog;
 import czort.grid.CustomGrid;
 import org.springframework.beans.factory.ObjectProvider;
@@ -22,7 +23,10 @@ public class MainView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "MainView";
 
     @Autowired
-    private transient ObjectProvider<MainDialog> mainDialogObjectProvider;
+    private transient ObjectProvider<TestFormDialog> dialogProvider;
+
+    @Autowired
+    private transient ObjectProvider<TestTabSheetFormDialog> tabSheetFormDialogObjectProvider;
 
     @Autowired
     MainFormDialog mainFormDialog;
@@ -77,13 +81,30 @@ public class MainView extends VerticalLayout implements View {
         addComponent(grid);
         final AtomicInteger atomicInteger = new AtomicInteger();
         Button button = new Button("t", (event) -> {
-            objectProvider.getIfUnique()
-                .withInitialValue(new Model())
-                .withOnAcceptHandler(System.out::println)
-                .open();
+            Model model = new Model();
+            model.setName("Initial name");
 
+            dialogProvider.getIfUnique()
+                    .withInitialValue(model)
+                    .withSize(BaseDialog.Size.LARGE)
+                    .open();
         });
-        addComponent(button);
+
+        Button button1 = new Button("t1", (event) -> {
+            Model model = new Model();
+            model.setName("Initial name");
+            model.setValue2(11L);
+
+            tabSheetFormDialogObjectProvider.getIfUnique()
+                    .withInitialValue(model)
+                    .withSize(BaseDialog.Size.LARGE)
+                    .useFooterComponent(it -> it.withAcceptClickListener(m -> {
+                        System.out.println("Model from MainView: " + m.toString());
+                    }))
+                    .open();
+        });
+
+        addComponents(button, button1);
         addComponent(wrap);
     }
 }

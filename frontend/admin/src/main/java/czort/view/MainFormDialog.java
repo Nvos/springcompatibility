@@ -5,6 +5,7 @@ import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.VerticalLayout;
 import czort.client.UserClient;
 import czort.dialog.FormDialog;
+import czort.form.Form;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 @SpringComponent
@@ -18,9 +19,7 @@ public class MainFormDialog extends FormDialog<Model> {
     }
 
     @Override
-    protected HasComponents body(Model model) {
-        System.out.println(model);
-//        System.out.println(userClient.findAll());
-        return new VerticalLayout();
+    protected Form<Model> bodyComponent(Model model) {
+        return null;
     }
 }
