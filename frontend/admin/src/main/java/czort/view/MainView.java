@@ -82,25 +82,22 @@ public class MainView extends VerticalLayout implements View {
         final AtomicInteger atomicInteger = new AtomicInteger();
         Button button = new Button("t", (event) -> {
             Model model = new Model();
-            model.setName("Initial name");
+            model.setName("");
 
             dialogProvider.getIfUnique()
                     .withInitialValue(model)
-                    .withSize(BaseDialog.Size.LARGE)
+                    .withSize(BaseDialog.Size.UNDEFINED)
                     .open();
         });
 
         Button button1 = new Button("t1", (event) -> {
             Model model = new Model();
-            model.setName("Initial name");
+            model.setName("");
             model.setValue2(11L);
 
             tabSheetFormDialogObjectProvider.getIfUnique()
                     .withInitialValue(model)
                     .withSize(BaseDialog.Size.LARGE)
-                    .useFooterComponent(it -> it.withAcceptClickListener(m -> {
-                        System.out.println("Model from MainView: " + m.toString());
-                    }))
                     .open();
         });
 

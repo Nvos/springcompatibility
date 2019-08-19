@@ -3,34 +3,40 @@ package czort.view;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.server.UserError;
 import com.vaadin.spring.annotation.SpringComponent;
+import czort.client.UserClient;
 import czort.dialog.FormDialog;
-import czort.form.Form;
+import czort.form.StandardForm;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 @SpringComponent
 @PrototypeScope
 public class TestFormDialog extends FormDialog<Model> {
 
+    private final UserClient userClient;
+
+    public TestFormDialog(UserClient userClient) {
+        this.userClient = userClient;
+    }
+
     @Override
-    protected Form<Model> bodyComponent(Model model) {
-        return new Form<>(model, Model.class)
+    protected StandardForm<Model> bodyComponent(Model model) {
+        return new StandardForm<>(model, Model.class)
             .withColumn(column -> {
                 column.withTextField("name")
                     .useBinding(it ->  it.withValidator((value, context) ->
-                            value.length() > 10
-                                    ? ValidationResult.ok()
-                                    : ValidationResult.error("Value less than 10")
-                    ))
-                .useField(it -> it.setComponentError(new UserError("wtf")));
+                            (value == null || value.length() < 10)
+                                    ? ValidationResult.error("Value less than 10")
+                                    : ValidationResult.ok()
+                    ));
                 column.withLabel("", "name section");
                 column.withIntegerField("value1");
                 column.withLabel("Label", "value2 section");
                 column.withLongField("value2")
                     .useBinding(binding -> {
                         binding.withValidator((value, context) ->
-                            value > 10
-                                    ? ValidationResult.ok()
-                                    : ValidationResult.error("Value less than 10")
+                            (value == null || value < 10)
+                                    ? ValidationResult.error("Value less than 10")
+                                    : ValidationResult.ok()
                         );
                     });
             })
@@ -43,7 +49,11 @@ public class TestFormDialog extends FormDialog<Model> {
     @Override
     protected FormDialogFooter footerComponent() {
         return new FormDialogFooter()
-                .withCancelButton(System.out::println)
-                .withAcceptButton(System.out::println);
+                .withCancelButton()
+                .withAcceptButton(event -> {
+                    if (getForm().getBinder().validate().isOk()) {
+                        closeWithoutPrompt();
+                    }
+                });
     }
 }

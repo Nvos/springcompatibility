@@ -1,22 +1,20 @@
 package czort.form;
 
-import com.vaadin.server.UserError;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TabSheet;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class TabSheetForm<MODEL> extends TabSheet {
+public class TabSheetForm<MODEL> extends TabSheet implements Form<MODEL> {
     private FormBinder<MODEL> binder;
     private Map<String, Tab> tabFormMap = new HashMap<>();
 
     private Component currentTab;
     private Component previousTab;
 
-    public TabSheetForm(MODEL model, Class modelClass) {
+    public TabSheetForm(MODEL model, Class<MODEL> modelClass) {
         binder = new FormBinder<>(modelClass);
         binder.setBean(model);
         setSizeFull();
@@ -26,21 +24,12 @@ public class TabSheetForm<MODEL> extends TabSheet {
             else {
                 previousTab = currentTab;
                 currentTab = this.getSelectedTab();
-
-                Form<MODEL> form = (Form<MODEL>) this.previousTab;
-                Tab tab = tabFormMap.get(form.getId());
-
-                if(!form.collectErrors().isEmpty()) {
-                    tab.setComponentError(new UserError("Has validation errors"));
-                } else {
-                    tab.setComponentError(null);
-                }
             }
         });
     }
 
-    public TabSheetForm<MODEL> withTab(String caption, Consumer<Form<MODEL>> onTabCreate) {
-        Form<MODEL> form = new Form<>(this.binder);
+    public TabSheetForm<MODEL> withTab(String caption, Consumer<StandardForm<MODEL>> onTabCreate) {
+        StandardForm<MODEL> form = new StandardForm<>(this.binder);
         form.setId(caption);
         Tab tab = addTab(form, caption);
         tabFormMap.put(caption, tab);

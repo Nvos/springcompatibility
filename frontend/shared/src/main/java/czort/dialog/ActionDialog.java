@@ -53,7 +53,7 @@ final public class ActionDialog extends BaseDialog<ActionDialog.ActionDialogFoot
         return new ActionDialogFooter();
     }
 
-    public ActionDialog openAlert(String caption, String description, Consumer<Result> onAcceptClick) {
+    public ActionDialog openPrompt(String caption, String description, Consumer<Result> onAcceptClick) {
         provider.getIfUnique()
                 .withComponent(new Label(description))
                 .withCaption(caption)

@@ -1,16 +1,11 @@
 package czort.form;
 
 import com.vaadin.data.Binder;
-import com.vaadin.data.HasValue;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.data.converter.StringToLongConverter;
-import com.vaadin.server.AbstractErrorMessage;
-import com.vaadin.server.ErrorMessage;
 import com.vaadin.server.UserError;
-import com.vaadin.shared.ui.ErrorLevel;
 import com.vaadin.ui.*;
-import czort.form.Form;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,10 +13,10 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class FormColumn<MODEL> extends FormLayout {
-    private final Form<MODEL> parent;
+    private final StandardForm<MODEL> parent;
     private final List<FieldBinding<Component, Object>> bindings = new ArrayList<>();
 
-    public FormColumn(Form<MODEL> parent) {
+    public FormColumn(StandardForm<MODEL> parent) {
         this.parent = parent;
     }
 
@@ -70,7 +65,7 @@ public class FormColumn<MODEL> extends FormLayout {
         return label;
     }
 
-    public Form<MODEL> createColumn() {
+    public StandardForm<MODEL> createColumn() {
         this.bindings.forEach(it -> {
             String property = it.field.getId();
             addComponent(it.field);

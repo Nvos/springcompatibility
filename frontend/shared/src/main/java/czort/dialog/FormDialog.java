@@ -1,15 +1,17 @@
 package czort.dialog;
 
-import com.vaadin.server.UserError;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.Window;
+import czort.form.Form;
+import czort.form.FormBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SpringComponent
 @PrototypeScope
@@ -23,6 +25,7 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
     @Override
     public Window open() {
         Objects.requireNonNull(model);
+
         super.open();
 
         return this;
@@ -65,6 +68,23 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
         return bodyComponent(model);
     }
 
+    @Override
+    public void close() {
+        FormBinder<MODEL> binder = getForm().getBinder();
+
+        if (binder.isDirty()) {
+            actionDialog.openPrompt("Alert", "Do you want to save?", result -> {
+                close();
+            });
+        } else {
+            super.close();
+        }
+    }
+
+    public void closeWithoutPrompt() {
+        super.close();
+    }
+
     protected abstract HasComponents bodyComponent(MODEL model);
 
     public class FormDialogFooter extends BaseDialogFooter {
@@ -73,44 +93,27 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
 
         public FormDialogFooter() { }
 
-        public FormDialogFooter withAcceptButton(Consumer<MODEL> onClick) {
+        public FormDialogFooter withAcceptButton(Button.ClickListener onClick) {
             if (acceptButton != null) this.removeComponent(acceptButton);
 
-            acceptButton = new Button("Accept");
-            acceptButton.addClickListener(event -> onClick.accept(model));
+            acceptButton = new Button("Accept", onClick);
             withButtonRight(acceptButton);
 
             return this;
         }
 
-        public FormDialogFooter withCancelButton(Consumer<MODEL> onClick) {
+        public FormDialogFooter withCancelButton() {
             if (cancelButton != null) this.removeComponent(cancelButton);
 
             cancelButton = new Button("Cancel");
-            withCancelClickListener(event -> onClick.accept(model));
+            cancelButton.addClickListener(event -> close());
             withButtonRight(cancelButton);
 
             return this;
         }
+    }
 
-        public FormDialogFooter withAcceptClickListener(Consumer<MODEL> onClick) {
-            Objects.requireNonNull(acceptButton);
-            acceptButton.addClickListener(it -> onClick.accept(model));
-
-            return this;
-        }
-
-        public FormDialogFooter withCancelClickListener(Consumer<MODEL> onClick) {
-            Objects.requireNonNull(cancelButton);
-            cancelButton.addClickListener(it -> {
-                actionDialog.openAlert("Alert", "Do you want to save?", event -> {
-                    close();
-                    onClick.accept(model);
-                    System.out.println("Yes click.");
-                });
-            });
-
-            return this;
-        }
+    protected Form<MODEL> getForm() {
+        return (Form<MODEL>)bodyComponent;
     }
 }

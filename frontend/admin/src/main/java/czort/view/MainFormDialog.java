@@ -1,11 +1,9 @@
 package czort.view;
 
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.HasComponents;
-import com.vaadin.ui.VerticalLayout;
 import czort.client.UserClient;
 import czort.dialog.FormDialog;
-import czort.form.Form;
+import czort.form.StandardForm;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 @SpringComponent
@@ -19,7 +17,7 @@ public class MainFormDialog extends FormDialog<Model> {
     }
 
     @Override
-    protected Form<Model> bodyComponent(Model model) {
+    protected StandardForm<Model> bodyComponent(Model model) {
         return null;
     }
 }
