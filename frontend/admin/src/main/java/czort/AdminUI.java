@@ -9,6 +9,7 @@ import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import czort.view.MainView;
+import czort.view.TestCrudView;
 
 @Title("Admin")
 @Theme("standard")
@@ -25,11 +26,12 @@ public class AdminUI extends RootUI {
     @Override
     protected void init(VaadinRequest request) {
         springNavigator.addView(MainView.VIEW_NAME, MainView.class);
+        springNavigator.addView(TestCrudView.VIEW_NAME, TestCrudView.class);
 
         final VerticalLayout root = new VerticalLayout();
         root.setSizeFull();
         setContent(root);
 
-        springNavigator.navigateTo(MainView.VIEW_NAME);
+        springNavigator.navigateTo(TestCrudView.VIEW_NAME);
     }
 }

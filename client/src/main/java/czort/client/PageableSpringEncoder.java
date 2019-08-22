@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import feign.QueryMap;
+import feign.Request;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
@@ -53,9 +55,7 @@ public class PageableSpringEncoder implements Encoder {
     }
 
     @Override
-    public void encode(Object object, Type bodyType, RequestTemplate template)
-            throws EncodeException {
-
+    public void encode(Object object, Type bodyType, RequestTemplate template) throws EncodeException {
         if (supports(object)) {
             if (object instanceof Pageable) {
                 Pageable pageable = (Pageable) object;

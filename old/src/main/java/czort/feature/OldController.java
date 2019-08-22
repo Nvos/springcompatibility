@@ -1,16 +1,21 @@
 package czort.feature;
 
+import com.netflix.client.ClientFactory;
 import czort.client.UserClient;
 import czort.contract.UserContract;
 import czort.entity.UserEntity;
 import czort.repository.UserRepository;
 import czort.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.metamodel.SingularAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +29,7 @@ public class OldController implements UserContract {
     @Autowired
     public OldController(UserRepository userRepository) {
         this.userRepository = userRepository;
+
 //        this.userClient = userClient;
     }
 
@@ -39,9 +45,13 @@ public class OldController implements UserContract {
     public ResponseEntity<Long> count() {
         return ResponseEntity.ok(userRepository.count());
     }
-
     public ResponseEntity<UserResponse> find(@PathVariable("id") Integer id) {
-        UserEntity one = userRepository.findOne(id);
-        return ResponseEntity.ok(new UserResponse(one.getId(), one.getName(), one.getEmail()));
+        UserEntity entity = new UserEntity();
+      return null;
+
+
+
+
+//        return ResponseEntity.ok();
     }
 }
