@@ -14,10 +14,6 @@ public class UserEditDialog extends FormDialog<UserUpdateRequest> {
 
     @Override
     protected HasComponents bodyComponent(UserUpdateRequest userUpdateRequest) {
-        return new StandardForm<>(userUpdateRequest, UserUpdateRequest.class)
-                .withColumn(column -> {
-                    column.withTextField("name");
-                    column.withTextField("email");
-                });
+        return new SharedForm(userUpdateRequest, UserUpdateRequest.class);
     }
 }

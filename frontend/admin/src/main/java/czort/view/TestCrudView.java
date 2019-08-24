@@ -13,6 +13,10 @@ import org.vaadin.spring.events.EventBus;
 
 import java.util.Map;
 
+// TODO: Simplify configuration
+// TODO: Verify if withTypes is needed (mappings can be provided as lambdas model<=>update/create)
+// TODO: Abstract configuration which is required by both view and presenter
+
 @ViewScope
 @SpringView(name = TestCrudView.VIEW_NAME)
 public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest>> {

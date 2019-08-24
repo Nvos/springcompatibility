@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-@ViewScope
-@SpringComponent
 public class BaseGrid<T> extends Grid<T> {
     private final Map<String, String> filter;
 

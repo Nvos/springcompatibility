@@ -14,10 +14,11 @@ public class UserCreateDialog extends FormDialog<UserCreateRequest> {
 
     @Override
     protected HasComponents bodyComponent(UserCreateRequest model) {
-        return new StandardForm<>(model, UserCreateRequest.class)
-                .withColumn(column -> {
-                    column.withTextField("name");
-                    column.withTextField("email");
-                });
+        return new SharedForm(model, UserCreateRequest.class);
+//        return new StandardForm<>(model, UserCreateRequest.class)
+//                .withColumn(column -> {
+//                    column.withTextField("name");
+//                    column.withTextField("email");
+//                });
     }
 }

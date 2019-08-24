@@ -4,7 +4,7 @@ import com.vaadin.ui.*;
 
 import java.util.function.Consumer;
 
-public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL> {
+public class StandardForm<MODEL extends Object> extends VerticalLayout implements Form<MODEL> {
     private FormBinder<MODEL> binder;
     private HorizontalLayout formColumns = new HorizontalLayout();
 

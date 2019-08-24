@@ -10,31 +10,26 @@ import com.vaadin.ui.VerticalLayout;
 import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.DirectFieldAccessor;
-import org.springframework.beans.PropertyAccessor;
-import org.springframework.data.util.ReflectionUtils;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.function.Consumer;
 
 @ViewScope
 @SpringComponent
-public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout implements CrudContract.View<MODEL, CREATE, UPDATE> {
+public class CrudViewFragment<MODEL, CREATE, UPDATE>
+        extends VerticalLayout
+        implements CrudContract.View<MODEL, CREATE, UPDATE> {
 
     private final BaseGrid<MODEL> grid;
-    private final CrudPresenter<MODEL, CREATE, UPDATE> presenter;
+    private final CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter;
     private final ActionDialog actionDialog;
     private FormDialog<CREATE> createDialog;
     private FormDialog<UPDATE> updateDialog;
 
     public CrudViewFragment(
-            BaseGrid<MODEL> grid,
-            CrudPresenter<MODEL, CREATE, UPDATE> presenter,
+            CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter,
             ActionDialog actionDialog
     ) {
-        this.grid = grid;
+        this.grid = new BaseGrid<>();
         this.presenter = presenter;
         this.actionDialog = actionDialog;
 

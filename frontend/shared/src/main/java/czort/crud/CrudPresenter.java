@@ -4,14 +4,12 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Component;
 import czort.contract.CrudResourceContract;
+import czort.dialog.FormDialog;
 import czort.mvp.BasePresenter;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.core.GenericTypeResolver;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.ReflectionUtils;
-import org.vaadin.spring.util.ClassUtils;
 
 import java.util.Map;
 
@@ -64,7 +62,7 @@ public class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE e
         view.openCreateDialog(createProps);
     }
 
-    protected CrudPresenter<MODEL, CREATE, UPDATE> setTypes(
+    public CrudPresenter<MODEL, CREATE, UPDATE> setTypes(
             Class<MODEL> modelType,
             Class<CREATE> createType,
             Class<UPDATE> updateType
