@@ -7,7 +7,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import czort.dialog.BaseDialog;
 import czort.dialog.FormDialog;
-import czort.grid.CustomGrid;
+import czort.grid.BaseGrid;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -71,14 +71,9 @@ public class MainView extends VerticalLayout implements View {
 
         Binder<Model> binder = new Binder<>();
 
-        CustomGrid<Model> grid = new CustomGrid<>();
-        grid.all(Model.class)
-        .setItems(items);
 
 //        grid.setDataProvider(pageableUserProvider);
-        grid.setWidth("600px");
-        grid.setHeight("600px");
-        addComponent(grid);
+
         final AtomicInteger atomicInteger = new AtomicInteger();
         Button button = new Button("t", (event) -> {
             Model model = new Model();

@@ -1,6 +1,5 @@
 package czort.feature;
 
-import czort.contract.UserContract;
 import czort.repository.UserRepository;
 import czort.response.UserResponse;
 import org.springframework.http.ResponseEntity;

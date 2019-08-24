@@ -23,7 +23,7 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
     private ActionDialog actionDialog;
 
     @Override
-    public Window open() {
+    public FormDialog<MODEL> open() {
         Objects.requireNonNull(model);
 
         super.open();
@@ -68,19 +68,6 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
         return bodyComponent(model);
     }
 
-    @Override
-    public void close() {
-        FormBinder<MODEL> binder = getForm().getBinder();
-
-        if (binder.isDirty()) {
-            actionDialog.openPrompt("Alert", "Do you want to save?", result -> {
-                close();
-            });
-        } else {
-            super.close();
-        }
-    }
-
     public void closeWithoutPrompt() {
         super.close();
     }
@@ -93,10 +80,14 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
 
         public FormDialogFooter() { }
 
-        public FormDialogFooter withAcceptButton(Button.ClickListener onClick) {
+        public FormDialogFooter withAcceptButton(Consumer<MODEL> withProvidedModel) {
             if (acceptButton != null) this.removeComponent(acceptButton);
 
-            acceptButton = new Button("Accept", onClick);
+            acceptButton = new Button("Accept", event -> {
+                withProvidedModel.accept(getForm().getBinder().getBean());
+                close();
+            });
+
             withButtonRight(acceptButton);
 
             return this;

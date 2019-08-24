@@ -2,23 +2,15 @@ package czort.mvp;
 
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import org.vaadin.artur.spring.dataprovider.PageableDataProvider;
+import czort.grid.BaseGrid;
 
 import java.util.function.Consumer;
 
 public class CrudView<MODEL> extends VerticalLayout {
-    private Grid<MODEL> grid;
 
-    public CrudView<MODEL> withGrid(
-            Class<MODEL> modelClass,
-            PageableDataProvider<MODEL, MODEL> dataProvider,
-            Consumer<Grid<MODEL>> withProvidedGrid
-    ) {
-        grid = new Grid<>(modelClass);
-        grid.setDataProvider(dataProvider);
-
-        withProvidedGrid.accept(grid);
+    public CrudView<MODEL> withGrid(BaseGrid<MODEL> grid, Consumer<BaseGrid<MODEL>> withProvidedGrid) {
         addComponent(grid);
+        withProvidedGrid.accept(grid);
 
         return this;
     }

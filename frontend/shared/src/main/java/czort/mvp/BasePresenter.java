@@ -1,16 +1,13 @@
 package czort.mvp;
 
-import com.vaadin.navigator.View;
+import com.vaadin.ui.Component;
 
-public abstract class BasePresenter<VIEW extends BaseView, MODEL> {
-    protected VIEW view;
-    protected MODEL model;
+public abstract class BasePresenter<FRAGMENT extends Component> {
+    protected transient FRAGMENT view;
 
-    protected BasePresenter<VIEW, MODEL> bootstrap(VIEW view) {
+    public BasePresenter<FRAGMENT> bootstrap(FRAGMENT view) {
         this.view = view;
 
         return this;
     }
-
-    protected abstract MODEL initialModel();
 }

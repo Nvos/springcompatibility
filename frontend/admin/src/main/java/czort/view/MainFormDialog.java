@@ -1,7 +1,7 @@
 package czort.view;
 
 import com.vaadin.spring.annotation.SpringComponent;
-import czort.client.UserClient;
+import czort.client.UserCrudClient;
 import czort.dialog.FormDialog;
 import czort.form.StandardForm;
 import org.vaadin.spring.annotation.PrototypeScope;
@@ -10,9 +10,9 @@ import org.vaadin.spring.annotation.PrototypeScope;
 @PrototypeScope
 public class MainFormDialog extends FormDialog<Model> {
 
-    private final UserClient userClient;
+    private final UserCrudClient userClient;
 
-    public MainFormDialog(UserClient userClient) {
+    public MainFormDialog(UserCrudClient userClient) {
         this.userClient = userClient;
     }
 

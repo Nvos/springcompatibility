@@ -45,7 +45,7 @@ public class Column {
     }
 
     @SuppressWarnings("unchecked")
-    public static  Column localDateColumn(PropertyDefinition definition) {
+    public static Column localDateColumn(PropertyDefinition definition) {
         return new Column(
                 definition,
                 new LocalDateRenderer()
@@ -53,7 +53,7 @@ public class Column {
     }
 
     @SuppressWarnings("unchecked")
-    public static  Column numberColumn(PropertyDefinition definition) {
+    public static Column numberColumn(PropertyDefinition definition) {
         return new Column(
                 definition,
                 new NumberRenderer()

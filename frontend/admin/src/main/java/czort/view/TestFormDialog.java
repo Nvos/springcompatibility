@@ -1,9 +1,8 @@
 package czort.view;
 
 import com.vaadin.data.ValidationResult;
-import com.vaadin.server.UserError;
 import com.vaadin.spring.annotation.SpringComponent;
-import czort.client.UserClient;
+import czort.client.UserCrudClient;
 import czort.dialog.FormDialog;
 import czort.form.StandardForm;
 import org.vaadin.spring.annotation.PrototypeScope;
@@ -12,9 +11,9 @@ import org.vaadin.spring.annotation.PrototypeScope;
 @PrototypeScope
 public class TestFormDialog extends FormDialog<Model> {
 
-    private final UserClient userClient;
+    private final UserCrudClient userClient;
 
-    public TestFormDialog(UserClient userClient) {
+    public TestFormDialog(UserCrudClient userClient) {
         this.userClient = userClient;
     }
 

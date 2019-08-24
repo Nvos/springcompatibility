@@ -4,7 +4,8 @@ import com.vaadin.data.provider.Query;
 import com.vaadin.data.provider.QuerySortOrder;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
-import czort.client.UserClient;
+import com.vaadin.spring.annotation.ViewScope;
+import czort.client.UserCrudClient;
 import czort.response.UserResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,12 +14,13 @@ import org.vaadin.artur.spring.dataprovider.PageableDataProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+@ViewScope
 @SpringComponent
 public class PageableUserProvider extends PageableDataProvider<UserResponse, String> {
 
-    private final UserClient userClient;
+    private final UserCrudClient userClient;
 
-    public PageableUserProvider(UserClient userClient) {
+    public PageableUserProvider(UserCrudClient userClient) {
         this.userClient = userClient;
     }
 
@@ -36,6 +38,6 @@ public class PageableUserProvider extends PageableDataProvider<UserResponse, Str
 
     @Override
     protected int sizeInBackEnd(Query<UserResponse, String> query) {
-        return userClient.count().getBody().intValue();
+        return userClient.count().getBody().getCount();
     }
 }

@@ -8,15 +8,15 @@ import org.vaadin.spring.events.EventBus;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class BaseView<PRESENTER extends BasePresenter, ROOT extends Component> extends CustomComponent implements View {
-    protected final PRESENTER presenter;
-    protected final EventBus.ViewEventBus viewEventBus;
+public abstract class BaseView<ROOT extends Component> extends CustomComponent implements View {
+    protected transient final EventBus.ViewEventBus viewEventBus;
 
     protected ROOT rootComponent;
 
-    protected BaseView(PRESENTER presenter, EventBus.ViewEventBus viewEventBus) {
-        this.presenter = presenter;
+    protected BaseView(EventBus.ViewEventBus viewEventBus) {
         this.viewEventBus = viewEventBus;
     }
 
@@ -24,20 +24,14 @@ public abstract class BaseView<PRESENTER extends BasePresenter, ROOT extends Com
 
     @PostConstruct
     public void onPostConstruct() {
-        presenter.bootstrap(this);
         viewEventBus.subscribe(this);
 
         rootComponent = rootComponent();
         setCompositionRoot(rootComponent);
-
-        withRootAndPresenter(presenter, rootComponent);
     }
 
     @PreDestroy
     public void onPreDestroy() {
         viewEventBus.subscribe(this);
-    }
-
-    protected void withRootAndPresenter(PRESENTER presenter, ROOT rootComponent) {
     }
 }
