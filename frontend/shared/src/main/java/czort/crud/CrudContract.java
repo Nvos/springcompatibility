@@ -16,13 +16,8 @@ public interface CrudContract {
         public MODEL find(Long id);
         public Page<MODEL> findAll(Pageable pageable, Map<String, String> filter);
 
-        public void handleEdit(Long id);
+        public void handleEdit(MODEL model);
         public void handleCreate();
-        public Presenter<MODEL, CREATE, UPDATE> setTypes(
-                Class<MODEL> modelType,
-                Class<CREATE> createType,
-                Class<UPDATE> updateType
-        );
     }
 
     public interface View<MODEL, CREATE, UPDATE> {

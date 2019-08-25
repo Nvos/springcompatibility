@@ -13,25 +13,20 @@ import czort.grid.BaseGrid;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@ViewScope
-@SpringComponent
 public class CrudViewFragment<MODEL, CREATE, UPDATE>
         extends VerticalLayout
         implements CrudContract.View<MODEL, CREATE, UPDATE> {
 
     private final BaseGrid<MODEL> grid;
-    private final CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter;
-    private final ActionDialog actionDialog;
+    private CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter;
     private FormDialog<CREATE> createDialog;
     private FormDialog<UPDATE> updateDialog;
 
     public CrudViewFragment(
-            CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter,
-            ActionDialog actionDialog
+            CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter
     ) {
         this.grid = new BaseGrid<>();
         this.presenter = presenter;
-        this.actionDialog = actionDialog;
 
         presenter.bootstrap(this);
     }
@@ -69,12 +64,13 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE>
         return grid;
     }
 
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withSection() {
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withSection(Consumer<HorizontalLayout> withLayout) {
         HorizontalLayout layout = new HorizontalLayout();
         Button createButton = new Button("Create", event -> presenter.handleCreate());
 
         layout.addComponents(createButton);
 
+        withLayout.accept(layout);
         addComponent(layout);
 
         return this;
@@ -97,23 +93,13 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE>
         return this;
     }
 
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withGridEdit(ValueProvider<MODEL, Long> idProvider) {
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withGridEdit() {
         grid.addItemClickListener(event -> {
             if (event.getMouseEventDetails().isDoubleClick()) {
                 MODEL item = event.getItem();
-                presenter.handleEdit(idProvider.apply(item));
+                presenter.handleEdit(item);
             }
         });
-
-        return this;
-    }
-
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withTypes(
-            Class<MODEL> modelType,
-            Class<CREATE> createType,
-            Class<UPDATE> updateType
-    ) {
-        presenter.setTypes(modelType, createType, updateType);
 
         return this;
     }

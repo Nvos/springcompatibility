@@ -21,9 +21,7 @@ public class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE e
 {
 
     private final CrudResourceContract<MODEL, CREATE, UPDATE> crudClient;
-    private Class<MODEL> modelType;
-    private Class<CREATE> createType;
-    private Class<UPDATE> updateType;
+    private ReMapper<MODEL, CREATE, UPDATE> reMapper;
 
     public CrudPresenter(CrudResourceContract<MODEL, CREATE, UPDATE> crudClient) {
         this.crudClient = crudClient;
@@ -47,42 +45,20 @@ public class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE e
     }
 
     @Override
-    public void handleEdit(Long id) {
+    public void handleEdit(MODEL model) {
+        Long id = reMapper.getIdProvider().apply(model);
         MODEL current = find(id);
-        UPDATE updateProps = BeanUtils.instantiate(updateType);
-        BeanUtils.copyProperties(current, updateProps);
 
-        view.openUpdateDialog(id, updateProps);
+        view.openUpdateDialog(id, reMapper.getUpdateProvider().apply(current));
     }
 
     @Override
     public void handleCreate() {
-        CREATE createProps = BeanUtils.instantiate(createType);
-
-        view.openCreateDialog(createProps);
+        view.openCreateDialog(reMapper.getCreateProvider().get());
     }
 
-    public CrudPresenter<MODEL, CREATE, UPDATE> setTypes(
-            Class<MODEL> modelType,
-            Class<CREATE> createType,
-            Class<UPDATE> updateType
-    ) {
-        this.modelType = modelType;
-        this.createType = createType;
-        this.updateType = updateType;
-
+    public CrudPresenter<MODEL, CREATE, UPDATE> withReMapper(ReMapper<MODEL, CREATE, UPDATE> reMapper) {
+        this.reMapper = reMapper;
         return this;
-    }
-
-    public Class<MODEL> getModelType() {
-        return modelType;
-    }
-
-    public Class<CREATE> getCreateType() {
-        return createType;
-    }
-
-    public Class<UPDATE> getUpdateType() {
-        return updateType;
     }
 }
