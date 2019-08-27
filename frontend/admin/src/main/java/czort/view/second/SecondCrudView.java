@@ -11,6 +11,8 @@ import czort.mvp.BaseView;
 import czort.request.AdminCreateRequest;
 import czort.request.AdminUpdateRequest;
 import czort.response.AdminResponse;
+import czort.response.UserResponse;
+import czort.view.GridFilterComposer;
 import org.springframework.beans.BeanUtils;
 import org.vaadin.spring.events.EventBus;
 
@@ -47,27 +49,21 @@ public class SecondCrudView extends BaseView<CrudViewFragment<AdminResponse, Adm
 
     @Override
     public CrudViewFragment<AdminResponse, AdminCreateRequest, AdminUpdateRequest> rootComponent() {
-        return new CrudViewFragment<>(
-            crudPresenter.withReMapper(new ReMapper<>(
-                AdminResponse::getId,
-                AdminCreateRequest::new,
-                model -> {
-                    AdminUpdateRequest update = new AdminUpdateRequest();
-                    BeanUtils.copyProperties(model, update);
-
-                    return update;
-                }
-            )))
+        return new CrudViewFragment<>(crudPresenter)
                 .withCreateDialog(userCreateDialogFormDialog)
                 .withUpdateDialog(userUpdateRequestFormDialog)
                 .withSection(ref -> {
-
+                    // TODO: Common elements such ass show/hide filter
+                    // Though... how to pass grid ref to it?
                 })
-                .withGrid(ref -> {
-                    ref.addColumn(AdminResponse::getName).setCaption("Name");
-                    ref.addColumn(AdminResponse::getEmail).setCaption("Email");
-                })
-                .withGridDataProvider(dataProvider)
-                .withGridEdit();
+                .withGrid(composer -> composer
+                        .withDataProvider(dataProvider)
+                        .withGridRef(grid -> {
+                            grid.addColumn(AdminResponse::getName).setCaption("Name");
+                            grid.addColumn(AdminResponse::getEmail).setCaption("Email");
+                        })
+                        .withFilters(GridFilterComposer::withDefaultFilters)
+                        .withRowDoubleClickHandler(crudPresenter::handleEdit)
+                );
     }
 }

@@ -28,6 +28,14 @@ public abstract class BaseView<ROOT extends Component> extends CustomComponent i
 
         rootComponent = rootComponent();
         setCompositionRoot(rootComponent);
+
+        withDefaults();
+    }
+
+    private BaseView<ROOT> withDefaults() {
+        setSizeFull();
+
+        return this;
     }
 
     @PreDestroy

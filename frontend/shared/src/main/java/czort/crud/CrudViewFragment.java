@@ -2,68 +2,60 @@ package czort.crud;
 
 import com.vaadin.data.ValueProvider;
 import com.vaadin.data.provider.AbstractDataProvider;
+import com.vaadin.data.provider.DataProvider;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
+import czort.view.GridComposer;
+
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class CrudViewFragment<MODEL, CREATE, UPDATE>
-        extends VerticalLayout
-        implements CrudContract.View<MODEL, CREATE, UPDATE> {
-
-    private final BaseGrid<MODEL> grid;
+public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
+    private Grid<MODEL> grid;
     private CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter;
     private FormDialog<CREATE> createDialog;
     private FormDialog<UPDATE> updateDialog;
 
     public CrudViewFragment(
-            CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter
+            CrudPresenter<MODEL, CREATE, UPDATE> presenter
     ) {
-        this.grid = new BaseGrid<>();
         this.presenter = presenter;
 
         presenter.bootstrap(this);
+        setSizeFull();
     }
 
-    @Override
     public FormDialog<UPDATE> openUpdateDialog(Long id, UPDATE params) {
         return updateDialog
                 .withInitialValue(params)
                 .useFooterComponent(ref -> {
                     ref.withAcceptButton(event -> {
                         presenter.update(id, (UPDATE) event);
-                        getGrid().getDataProvider().refreshAll();
+                        getDataProvider().refreshAll();
                     });
                     ref.withCancelButton();
                 })
                 .open();
     }
 
-    @Override
     public FormDialog<CREATE> openCreateDialog(CREATE params) {
         return createDialog
                 .withInitialValue(params)
                 .useFooterComponent(ref -> {
                     ref.withAcceptButton(event -> {
                         presenter.create((CREATE) event);
-                        getGrid().getDataProvider().refreshAll();
+                        getDataProvider().refreshAll();
                     });
                     ref.withCancelButton();
                 })
                 .open();
     }
 
-    @Override
-    public BaseGrid<MODEL> getGrid() {
-        return grid;
-    }
-
+    // TODO: Add section composer
     public CrudViewFragment<MODEL, CREATE, UPDATE> withSection(Consumer<HorizontalLayout> withLayout) {
         HorizontalLayout layout = new HorizontalLayout();
         Button createButton = new Button("Create", event -> presenter.handleCreate());
@@ -77,29 +69,30 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE>
     }
 
     public CrudViewFragment<MODEL, CREATE, UPDATE> withGrid(
-            Consumer<BaseGrid<MODEL>> withProvidedGrid
+            Consumer<GridComposer<MODEL>> withProvidedGridComposer
     ) {
-        withProvidedGrid.accept(this.grid);
-        addComponent(grid);
+        if (this.grid != null) this.removeComponent(this.grid);
+
+        this.grid = new BaseGrid<>();
+        GridComposer<MODEL> composer = new GridComposer<>(this.grid);
+
+        withProvidedGridComposer.accept(composer);
+        addComponentsAndExpand(grid);
 
         return this;
     }
 
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withGridDataProvider(
-            AbstractDataProvider<MODEL, Map<String, String>> dataProvider
+    // TODO: Research tree grid provider and backend requirements
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withTreeGrid(
+            Consumer<GridComposer<MODEL>> withProvidedTreeGridComposer
     ) {
-        grid.setDataProvider(dataProvider);
+        if (this.grid != null) this.removeComponent(this.grid);
 
-        return this;
-    }
+        this.grid = new TreeGrid<>();
+        GridComposer<MODEL> composer = new GridComposer<>(this.grid);
 
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withGridEdit() {
-        grid.addItemClickListener(event -> {
-            if (event.getMouseEventDetails().isDoubleClick()) {
-                MODEL item = event.getItem();
-                presenter.handleEdit(item);
-            }
-        });
+        withProvidedTreeGridComposer.accept(composer);
+        addComponent(this.grid);
 
         return this;
     }
@@ -114,5 +107,11 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE>
         this.updateDialog = updateDialog;
 
         return this;
+    }
+
+    private DataProvider getDataProvider() {
+        if (this.grid != null) return this.grid.getDataProvider();
+
+        throw new UnsupportedOperationException("Before calling 'refreshGrid' create Gridc");
     }
 }

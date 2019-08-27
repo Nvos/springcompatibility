@@ -1,6 +1,7 @@
 package czort.grid;
 
 import com.vaadin.data.provider.ConfigurableFilterDataProvider;
+import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Grid;
@@ -18,6 +19,9 @@ public class BaseGrid<T> extends Grid<T> {
 
     public BaseGrid() {
         this.filter = new HashMap<>();
+        this.setHeightMode(HeightMode.CSS);
+        this.setWidth(100, Unit.PERCENTAGE);
+        this.setHeightUndefined();
     }
 
     public BaseGrid<T> withFilter() {

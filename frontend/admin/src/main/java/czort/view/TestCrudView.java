@@ -50,17 +50,7 @@ public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCr
 
     @Override
     public CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest> rootComponent() {
-        return new CrudViewFragment<>(
-            crudPresenter.withReMapper(new ReMapper<>(
-                UserResponse::getId,
-                UserCreateRequest::new,
-                model -> {
-                    UserUpdateRequest update = new UserUpdateRequest();
-                    BeanUtils.copyProperties(model, update);
-
-                    return update;
-                }
-            )))
+        return new CrudViewFragment<>(crudPresenter)
                 .withCreateDialog(userCreateDialogFormDialog)
                 .withUpdateDialog(userUpdateRequestFormDialog)
                 .withSection(ref -> {
@@ -70,11 +60,13 @@ public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCr
 
                     ref.addComponent(navigateButton);
                 })
-                .withGrid(ref -> {
-                    ref.addColumn(UserResponse::getName).setCaption("Name");
-                    ref.addColumn(UserResponse::getEmail).setCaption("Email");
-                })
-                .withGridDataProvider(dataProvider)
-                .withGridEdit();
+                .withGrid(composer -> composer
+                    .withDataProvider(dataProvider)
+                    .withGridRef(grid -> {
+                        grid.addColumn(UserResponse::getName).setCaption("Name");
+                        grid.addColumn(UserResponse::getEmail).setCaption("Email");
+                    })
+                    .withRowDoubleClickHandler(crudPresenter::handleEdit)
+                );
     }
 }

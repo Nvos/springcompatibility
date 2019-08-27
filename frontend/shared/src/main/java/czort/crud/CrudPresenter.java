@@ -6,6 +6,7 @@ import com.vaadin.ui.Component;
 import czort.contract.CrudResourceContract;
 import czort.dialog.FormDialog;
 import czort.mvp.BasePresenter;
+import jdk.internal.org.objectweb.asm.commons.Remapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.data.domain.Page;
@@ -15,16 +16,19 @@ import java.util.Map;
 
 @ViewScope
 @SpringComponent
-public class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE extends Object>
+public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE extends Object>
         extends BasePresenter<CrudViewFragment<MODEL, CREATE, UPDATE>>
         implements CrudContract.Presenter<MODEL, CREATE, UPDATE>
 {
 
     private final CrudResourceContract<MODEL, CREATE, UPDATE> crudClient;
-    private ReMapper<MODEL, CREATE, UPDATE> reMapper;
+    private final ReMapper<MODEL, CREATE, UPDATE> reMapper;
+
+    protected abstract ReMapper<MODEL, CREATE, UPDATE> getReMapper();
 
     public CrudPresenter(CrudResourceContract<MODEL, CREATE, UPDATE> crudClient) {
         this.crudClient = crudClient;
+        this.reMapper = getReMapper();
     }
 
     public MODEL create(CREATE params) {
@@ -55,10 +59,5 @@ public class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE e
     @Override
     public void handleCreate() {
         view.openCreateDialog(reMapper.getCreateProvider().get());
-    }
-
-    public CrudPresenter<MODEL, CREATE, UPDATE> withReMapper(ReMapper<MODEL, CREATE, UPDATE> reMapper) {
-        this.reMapper = reMapper;
-        return this;
     }
 }
