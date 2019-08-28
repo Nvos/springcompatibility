@@ -49,10 +49,6 @@ public class TestFormDialog extends FormDialog<Model> {
     protected FormDialogFooter footerComponent() {
         return new FormDialogFooter()
                 .withCancelButton()
-                .withAcceptButton(event -> {
-                    if (getForm().getBinder().validate().isOk()) {
-                        closeWithoutPrompt();
-                    }
-                });
+                .withAcceptButton();
     }
 }

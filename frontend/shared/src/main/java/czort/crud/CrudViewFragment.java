@@ -9,14 +9,21 @@ import com.vaadin.ui.*;
 import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
+import czort.mvp.Fragment;
+import czort.mvp.Presenter;
 import czort.view.GridComposer;
+import czort.view.SectionComposer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@ViewScope
+@SpringComponent
 public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
     private Grid<MODEL> grid;
-    private CrudContract.Presenter<MODEL, CREATE, UPDATE> presenter;
+    private CrudPresenter<MODEL, CREATE, UPDATE> presenter;
     private FormDialog<CREATE> createDialog;
     private FormDialog<UPDATE> updateDialog;
 
@@ -33,12 +40,20 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
         return updateDialog
                 .withInitialValue(params)
                 .useFooterComponent(ref -> {
-                    ref.withAcceptButton(event -> {
-                        presenter.update(id, (UPDATE) event);
-                        getDataProvider().refreshAll();
-                    });
+                    ref.withAcceptButton();
                     ref.withCancelButton();
                 })
+                .onResultChange(result -> result
+                        .onAccept(value -> {
+                            presenter.update(id, value);
+                            getDataProvider().refreshAll();
+
+                            updateDialog.closeWithoutPrompt();
+                        })
+                        .onCancel(cancelResult -> {
+                            updateDialog.close();
+                        })
+                )
                 .open();
     }
 
@@ -46,24 +61,17 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
         return createDialog
                 .withInitialValue(params)
                 .useFooterComponent(ref -> {
-                    ref.withAcceptButton(event -> {
-                        presenter.create((CREATE) event);
-                        getDataProvider().refreshAll();
-                    });
+                    ref.withAcceptButton();
                     ref.withCancelButton();
                 })
                 .open();
     }
 
-    // TODO: Add section composer
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withSection(Consumer<HorizontalLayout> withLayout) {
-        HorizontalLayout layout = new HorizontalLayout();
-        Button createButton = new Button("Create", event -> presenter.handleCreate());
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withSection(Consumer<SectionComposer<MODEL>> withProvidedSectionComposer) {
+        SectionComposer<MODEL> composer = new SectionComposer<>(this);
 
-        layout.addComponents(createButton);
-
-        withLayout.accept(layout);
-        addComponent(layout);
+        withProvidedSectionComposer.accept(composer);
+        addComponent(composer);
 
         return this;
     }
@@ -109,9 +117,25 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
         return this;
     }
 
-    private DataProvider getDataProvider() {
+    public DataProvider getDataProvider() {
         if (this.grid != null) return this.grid.getDataProvider();
 
-        throw new UnsupportedOperationException("Before calling 'refreshGrid' create Gridc");
+        throw new UnsupportedOperationException("Before calling 'refreshGrid' create Grid");
+    }
+
+    public Grid<MODEL> getGrid() {
+        return this.grid;
+    }
+
+    @Override
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withPresenter(Presenter presenter) {
+        this.presenters.add(presenter);
+
+        return this;
+    }
+
+    @Override
+    public List<Presenter> getPresenters() {
+        return presenters;
     }
 }

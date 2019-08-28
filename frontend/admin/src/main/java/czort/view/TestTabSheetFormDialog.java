@@ -36,6 +36,6 @@ public class TestTabSheetFormDialog extends FormDialog<Model> {
     protected FormDialogFooter footerComponent() {
         return new FormDialogFooter()
                 .withCancelButton()
-                .withAcceptButton(System.out::println);
+                .withAcceptButton();
     }
 }

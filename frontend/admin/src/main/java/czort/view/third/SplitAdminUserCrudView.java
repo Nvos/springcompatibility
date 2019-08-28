@@ -66,11 +66,8 @@ public class SplitAdminUserCrudView extends BaseView<CrudSplitViewFragment> {
                         .withCreateDialog(userCreateDialogFormDialog)
                         .withUpdateDialog(userUpdateRequestFormDialog)
                         .withSection(ref -> {
-                            Button navigateButton = new Button("Navigate", event -> {
-                                UI.getCurrent().getNavigator().navigateTo(SecondCrudView.VIEW_NAME);
-                            });
-
-                            ref.addComponent(navigateButton);
+                           ref.withButtonCreate(userCrudPresenter::handleCreate);
+                           ref.withButtonFilterToggle();
                         })
                         .withGrid(composer -> composer
                                 .withDataProvider(userDataProvider)
@@ -84,10 +81,10 @@ public class SplitAdminUserCrudView extends BaseView<CrudSplitViewFragment> {
                 .withCrudFragmentBottom(new CrudViewFragment<>(adminCrudPresenter)
                 .withCreateDialog(adminCreateRequestFormDialog)
                 .withUpdateDialog(adminUpdateRequestFormDialog)
-                .withSection(ref -> {
-                    // TODO: Common elements such ass show/hide filter
-                    // Though... how to pass grid ref to it?
-                })
+                    .withSection(ref -> {
+                        ref.withButtonCreate(adminCrudPresenter::handleCreate);
+                        ref.withButtonFilterToggle();
+                    })
                 .withGrid(composer -> composer
                         .withDataProvider(adminDataProvider)
                         .withGridRef(grid -> {

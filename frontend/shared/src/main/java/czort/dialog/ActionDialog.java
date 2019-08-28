@@ -110,9 +110,4 @@ final public class ActionDialog extends BaseDialog<ActionDialog.ActionDialogFoot
             return this;
         }
     }
-
-    public enum Result {
-        ACCEPT,
-        CANCEL
-    }
 }

@@ -17,9 +17,7 @@ import java.util.Map;
 @ViewScope
 @SpringComponent
 public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE extends Object>
-        extends BasePresenter<CrudViewFragment<MODEL, CREATE, UPDATE>>
-        implements CrudContract.Presenter<MODEL, CREATE, UPDATE>
-{
+        extends BasePresenter<CrudViewFragment<MODEL, CREATE, UPDATE>> {
 
     private final CrudResourceContract<MODEL, CREATE, UPDATE> crudClient;
     private final ReMapper<MODEL, CREATE, UPDATE> reMapper;
@@ -36,7 +34,6 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
     }
 
     public MODEL update(Long id, UPDATE params) {
-        this.view.openUpdateDialog(id, params);
         return crudClient.update(id, params).getBody();
     }
 
@@ -48,16 +45,39 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
         return crudClient.findAll(pageable).getBody();
     }
 
-    @Override
     public void handleEdit(MODEL model) {
         Long id = reMapper.getIdProvider().apply(model);
         MODEL current = find(id);
 
-        view.openUpdateDialog(id, reMapper.getUpdateProvider().apply(current));
+        FormDialog<UPDATE> dialog = view.openUpdateDialog(id, reMapper.getUpdateProvider().apply(current));
+
+        dialog.onResultChange(result -> result
+                .onAccept(value -> {
+                    update(id, value);
+                    view.getDataProvider().refreshAll();
+
+                    dialog.closeWithoutPrompt();
+                })
+                .onCancel(cancelResult -> {
+                    dialog.close();
+                })
+        );
     }
 
-    @Override
     public void handleCreate() {
-        view.openCreateDialog(reMapper.getCreateProvider().get());
+        FormDialog<CREATE> dialog = view.openCreateDialog(reMapper.getCreateProvider().get());
+
+        dialog.onResultChange(result -> result
+                .onAccept(value -> {
+                    create(value);
+                    view.getDataProvider().refreshAll();
+
+                    dialog.closeWithoutPrompt();
+                })
+                .onCancel(cancelResult -> {
+                    dialog.close();
+
+                })
+        );
     }
 }
