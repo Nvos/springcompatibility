@@ -20,8 +20,8 @@ public class BaseGrid<T> extends Grid<T> {
     public BaseGrid() {
         this.filter = new HashMap<>();
         this.setHeightMode(HeightMode.CSS);
-        this.setWidth(100, Unit.PERCENTAGE);
-        this.setHeightUndefined();
+        this.setSelectionMode(Grid.SelectionMode.NONE);
+        this.setSizeFull();
     }
 
     public BaseGrid<T> withFilter() {

@@ -34,6 +34,6 @@ public class AdminUI extends RootUI {
         root.setSizeFull();
         setContent(root);
 
-        springNavigator.navigateTo(SplitAdminUserCrudView.VIEW_NAME);
+        springNavigator.navigateTo(TestCrudView.VIEW_NAME);
     }
 }

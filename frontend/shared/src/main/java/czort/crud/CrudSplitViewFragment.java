@@ -2,9 +2,10 @@ package czort.crud;
 
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.VerticalSplitPanel;
 
-@SpringView
+@ViewScope
 @SpringComponent
 public class CrudSplitViewFragment extends VerticalSplitPanel {
 

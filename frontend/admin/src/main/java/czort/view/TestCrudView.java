@@ -19,11 +19,6 @@ import org.vaadin.spring.events.EventBus;
 
 import java.util.Map;
 
-// TODO: Simplify configuration
-// TODO: Abstract configuration which is required by both view and presenter
-// TODO: Verify client injection in crud presenter
-// TODO: Remove ueless abstractions
-
 @ViewScope
 @SpringView(name = TestCrudView.VIEW_NAME)
 public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest>> {
@@ -63,10 +58,16 @@ public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCr
                 .withGrid(composer -> composer
                     .withDataProvider(dataProvider)
                     .withGridRef(grid -> {
-                        grid.addColumn(UserResponse::getName).setCaption("Name");
-                        grid.addColumn(UserResponse::getEmail).setCaption("Email");
+                        grid.addColumn(UserResponse::getName).setCaption("Name").setExpandRatio(1);
+                        grid.addColumn(UserResponse::getEmail).setCaption("Email").setExpandRatio(1);
                     })
                     .withRowDoubleClickHandler(crudPresenter::handleEdit)
+                    .withContextMenu(contextMenu -> {
+                        contextMenu.withAction("Edit", model -> System.out.println("Edit " + model));
+                        contextMenu.withAction("Delete", model -> System.out.println("Delete " + model));
+                        contextMenu.withAction("Copy", model -> System.out.println("Copy " + model));
+                        contextMenu.withGridMenuButtonColumn();
+                    })
                 );
     }
 }

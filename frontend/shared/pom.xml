@@ -13,21 +13,11 @@
     <properties>
         <vaadin.plugin.version>8.4.1</vaadin.plugin.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-context-menu</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.artur</groupId>
-            <artifactId>spring-data-provider</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
@@ -48,6 +38,7 @@
                     <execution>
                         <goals>
                             <goal>update-theme</goal>
+                            <goal>update-widgetset</goal>
                             <goal>compile</goal>
                             <goal>compile-theme</goal>
                         </goals>

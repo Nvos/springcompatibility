@@ -9,7 +9,6 @@ import com.vaadin.ui.*;
 import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
-import czort.mvp.Fragment;
 import czort.mvp.Presenter;
 import czort.view.GridComposer;
 import czort.view.SectionComposer;
@@ -125,17 +124,5 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
 
     public Grid<MODEL> getGrid() {
         return this.grid;
-    }
-
-    @Override
-    public CrudViewFragment<MODEL, CREATE, UPDATE> withPresenter(Presenter presenter) {
-        this.presenters.add(presenter);
-
-        return this;
-    }
-
-    @Override
-    public List<Presenter> getPresenters() {
-        return presenters;
     }
 }

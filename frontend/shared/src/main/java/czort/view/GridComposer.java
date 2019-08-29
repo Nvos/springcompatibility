@@ -7,6 +7,7 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.TreeGrid;
+import czort.context_menu.BaseGridContextMenu;
 import czort.grid.BaseGrid;
 
 import java.util.function.Consumer;
@@ -45,15 +46,15 @@ public class GridComposer<MODEL> {
         return this;
     }
 
-    public GridComposer<MODEL> withContextMenu(Consumer<GridContextMenu<MODEL>> withProvidedContextMenu) {
-        GridContextMenu<MODEL> contextMenu = new GridContextMenu<>(this.grid);
-        withProvidedContextMenu.accept(contextMenu);
+    public GridComposer<MODEL> withDataProvider(DataProvider dataProvider) {
+        this.grid.setDataProvider(dataProvider);
 
         return this;
     }
 
-    public GridComposer<MODEL> withDataProvider(DataProvider dataProvider) {
-        this.grid.setDataProvider(dataProvider);
+    public GridComposer<MODEL> withContextMenu(Consumer<BaseGridContextMenu<MODEL>> withProvidedGridContextMenu) {
+        BaseGridContextMenu<MODEL> contextMenu = new BaseGridContextMenu<>(this.grid);
+        withProvidedGridContextMenu.accept(contextMenu);
 
         return this;
     }
