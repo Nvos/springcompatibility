@@ -11,7 +11,19 @@
 
     <artifactId>root</artifactId>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/webapp</directory>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-themes</artifactId>
+        </dependency>
         <dependency>
             <groupId>czort</groupId>
             <artifactId>admin</artifactId>

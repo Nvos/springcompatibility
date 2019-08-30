@@ -5,7 +5,6 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
-import czort.AdminUI;
 import czort.crud.CrudPresenter;
 import czort.crud.CrudViewFragment;
 import czort.crud.ReMapper;
@@ -14,23 +13,23 @@ import czort.mvp.BaseView;
 import czort.request.UserCreateRequest;
 import czort.request.UserUpdateRequest;
 import czort.response.UserResponse;
-import czort.view.second.SecondCrudView;
-import org.springframework.beans.BeanUtils;
+
+
 import org.vaadin.spring.events.EventBus;
 
 import java.util.Map;
 
 @ViewScope
-@SpringView(name = TestCrudView.VIEW_NAME, ui = AdminUI.class)
-public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest>> {
-    public static final String VIEW_NAME = "TestCrudView";
+@SpringView(name = ExportedView.VIEW_NAME)
+public class ExportedView extends BaseView<CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest>> {
+    public static final String VIEW_NAME = "ExportedView";
 
     private final CrudPresenter<UserResponse, UserCreateRequest, UserUpdateRequest> crudPresenter;
     private final FormDialog<UserCreateRequest> userCreateDialogFormDialog;
     private final FormDialog<UserUpdateRequest> userUpdateRequestFormDialog;
     private final AbstractDataProvider<UserResponse, Map<String, String>> dataProvider;
 
-    protected TestCrudView(
+    protected ExportedView(
             EventBus.ViewEventBus viewEventBus,
             CrudPresenter<UserResponse, UserCreateRequest, UserUpdateRequest> crudPresenter,
             FormDialog<UserCreateRequest> userCreateDialogFormDialog,
@@ -50,8 +49,8 @@ public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCr
                 .withCreateDialog(userCreateDialogFormDialog)
                 .withUpdateDialog(userUpdateRequestFormDialog)
                 .withSection(ref -> {
-                    Button navigateButton = new Button("Navigate", event -> {
-                        UI.getCurrent().getNavigator().navigateTo(SecondCrudView.VIEW_NAME);
+                    Button navigateButton = new Button("EXPORTED", event -> {
+                        UI.getCurrent().getNavigator().navigateTo(ExportedView.VIEW_NAME);
                     });
 
                     ref.addComponent(navigateButton);

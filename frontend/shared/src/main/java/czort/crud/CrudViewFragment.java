@@ -10,6 +10,7 @@ import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
 import czort.mvp.Presenter;
+import czort.util.ComponentUtils;
 import czort.view.GridComposer;
 import czort.view.SectionComposer;
 
@@ -112,6 +113,18 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
 
     public CrudViewFragment<MODEL, CREATE, UPDATE> withUpdateDialog(FormDialog<UPDATE> updateDialog) {
         this.updateDialog = updateDialog;
+
+        return this;
+    }
+
+    public CrudViewFragment<MODEL, CREATE, UPDATE> withTranslations() {
+        ComponentUtils.iterateFromRoot(this,
+                component -> System.out.println(component.getId() + ", " + component.getCaption()));
+
+        this.grid.getColumns()
+                .forEach(component -> {
+                    System.out.println(component.getId() + ", " + component.getCaption());
+                });
 
         return this;
     }

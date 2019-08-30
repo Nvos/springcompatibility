@@ -6,11 +6,11 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringNavigator;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import czort.view.MainView;
 import czort.view.TestCrudView;
 import czort.view.third.SplitAdminUserCrudView;
+import org.springframework.beans.factory.ObjectProvider;
 
 @Title("Admin")
 @Theme("standard")
@@ -18,10 +18,15 @@ import czort.view.third.SplitAdminUserCrudView;
 @SpringViewDisplay
 public class AdminUI extends RootUI {
 
-    private final SpringNavigator springNavigator;
+    protected final SpringNavigator springNavigator;
+    protected final ObjectProvider<DynamicViewLoader<AdminUI>> dynamicViewLoaderObjectProvider;
 
-    public AdminUI(SpringNavigator springNavigator) {
+    public AdminUI(
+            SpringNavigator springNavigator,
+            ObjectProvider<DynamicViewLoader<AdminUI>> dynamicViewLoaderObjectProvider
+    ) {
         this.springNavigator = springNavigator;
+        this.dynamicViewLoaderObjectProvider = dynamicViewLoaderObjectProvider;
     }
 
     @Override
@@ -33,7 +38,9 @@ public class AdminUI extends RootUI {
         final VerticalLayout root = new VerticalLayout();
         root.setSizeFull();
         setContent(root);
-
         springNavigator.navigateTo(TestCrudView.VIEW_NAME);
+
+        DynamicViewLoader<AdminUI> instance = dynamicViewLoaderObjectProvider.getIfAvailable();
+        if(instance != null) instance.addExportedViews(springNavigator);
     }
 }

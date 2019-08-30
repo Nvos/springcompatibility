@@ -23,7 +23,7 @@
     <build>
         <resources>
             <resource>
-                <directory>webapp</directory>
+                <directory>src/main/webapp</directory>
             </resource>
         </resources>
         <plugins>
@@ -40,7 +40,7 @@
                             <goal>update-theme</goal>
                             <goal>update-widgetset</goal>
                             <goal>compile</goal>
-                            <goal>compile-theme</goal>
+<!--                            <goal>compile-theme</goal>-->
                         </goals>
                     </execution>
                 </executions>

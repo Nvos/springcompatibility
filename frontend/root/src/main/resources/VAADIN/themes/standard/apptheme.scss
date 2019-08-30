@@ -7,6 +7,11 @@ $app-background-gradient: unquote("linear-gradient(145deg, #484962 30%, #d06b41 
 @mixin standard {
   @include valo;
 
+  .v-button {
+    background: blue!important;
+  }
+
+  background: red;
   .v-errorindicator {
     // Only show validation errors using field styles
     //display: none;
