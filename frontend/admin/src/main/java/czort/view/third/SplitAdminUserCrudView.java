@@ -58,11 +58,11 @@ public class SplitAdminUserCrudView extends BaseView<CrudSplitViewFragment> {
         this.userUpdateRequestFormDialog = userUpdateRequestFormDialog;
         this.userDataProvider = userDataProvider;
     }
-
+B
     @Override
     public CrudSplitViewFragment rootComponent() {
         return new CrudSplitViewFragment()
-                .withCrudFragmentTop(new CrudViewFragment<>(userCrudPresenter)
+                .withCrudFragmentTop(CrudViewFragment.instance(userCrudPresenter)
                         .withCreateDialog(userCreateDialogFormDialog)
                         .withUpdateDialog(userUpdateRequestFormDialog)
                         .withSection(ref -> {
@@ -78,7 +78,7 @@ public class SplitAdminUserCrudView extends BaseView<CrudSplitViewFragment> {
                                 .withRowDoubleClickHandler(userCrudPresenter::handleEdit)
                         )
                 )
-                .withCrudFragmentBottom(new CrudViewFragment<>(adminCrudPresenter)
+                .withCrudFragmentBottom(CrudViewFragment.instance(adminCrudPresenter)
                 .withCreateDialog(adminCreateRequestFormDialog)
                 .withUpdateDialog(adminUpdateRequestFormDialog)
                     .withSection(ref -> {

@@ -3,7 +3,9 @@ package czort.mvp;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
+import czort.crud.CrudViewFragment;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.GenericTypeResolver;
 import org.vaadin.spring.events.EventBus;
 
 import javax.annotation.PostConstruct;

@@ -4,7 +4,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HasComponents;
 import czort.form.Form;
-import org.springframework.beans.factory.annotation.Autowired;
+import czort.form.StandardForm;
 import org.vaadin.spring.annotation.PrototypeScope;
 
 import java.util.Objects;
@@ -12,52 +12,47 @@ import java.util.function.Consumer;
 
 @SpringComponent
 @PrototypeScope
-public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialogFooter> {
+public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, FormDialog.FormDialogFooter> {
 
-    private MODEL model;
-    private FormDialogResult<MODEL> result;
-    private Consumer<FormDialogResult<MODEL>> formDialogResultHandler;
-
-    @Autowired
-    private ActionDialog actionDialog;
+    private VALUE value;
 
     @Override
-    public FormDialog<MODEL> open() {
-        Objects.requireNonNull(model, "Setting initial FormDialog value is required!");
+    public FormDialog<VALUE> open() {
+        Objects.requireNonNull(value, "Setting initial FormDialog value is required!");
 
         super.open();
 
         return this;
     }
 
+    public FormDialog<VALUE> with(Consumer<FormDialog<VALUE>> withSelfProvided) {
+        withSelfProvided.accept(this);
+
+        return this;
+    }
+
     @Override
-    public FormDialog<MODEL> withSize(Size size) {
+    public FormDialog<VALUE> withSize(Size size) {
         super.withSize(size);
 
         return this;
     }
 
-    public FormDialog<MODEL> withInitialValue(MODEL initialValue) {
-        this.model = initialValue;
-
-        return this;
-    }
-
-    public FormDialog<MODEL> onResultChange(Consumer<FormDialogResult<MODEL>> formDialogResultHandler) {
-        this.formDialogResultHandler = formDialogResultHandler;
+    public FormDialog<VALUE> withInitialValue(VALUE initialValue) {
+        this.value = initialValue;
 
         return this;
     }
 
     @Override
-    public FormDialog<MODEL> useFooterComponent(Consumer<FormDialog.FormDialogFooter> withProvidedFooterComponent) {
+    public FormDialog<VALUE> useFooterComponent(Consumer<FormDialog.FormDialogFooter> withProvidedFooterComponent) {
         super.useFooterComponent(withProvidedFooterComponent);
 
         return this;
     }
 
     @Override
-    public FormDialog<MODEL> useBodyComponent(Consumer<HasComponents> withProvidedBodyComponent) {
+    public FormDialog<VALUE> useBodyComponent(Consumer<StandardForm<VALUE>> withProvidedBodyComponent) {
         super.useBodyComponent(withProvidedBodyComponent);
 
         return this;
@@ -70,33 +65,30 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
 
     @Override
     protected HasComponents bodyComponent() {
-        return bodyComponent(model);
+        return bodyComponent(value);
     }
 
     public void closeWithoutPrompt() {
         super.close();
     }
 
-    protected abstract HasComponents bodyComponent(MODEL model);
+    protected abstract Form<VALUE> bodyComponent(VALUE value);
 
-    public FormDialog<MODEL> setFormResult(FormDialogResult<MODEL> result) {
-        this.result = result;
-        if (formDialogResultHandler != null) formDialogResultHandler.accept(result);
 
-        return this;
-    }
-
-    public class FormDialogFooter extends BaseDialogFooter {
+    public class FormDialogFooter extends BaseDialogFooter<VALUE> {
         private Button acceptButton;
         private Button cancelButton;
+        protected FormDialog<VALUE> dialog;
 
-        public FormDialogFooter() { }
+        public FormDialogFooter(FormDialog<VALUE> dialog) {
+            super(dialog);
+        }
 
         public FormDialogFooter withAcceptButton() {
             if (acceptButton != null) this.removeComponent(acceptButton);
 
             acceptButton = new Button("Accept", event -> {
-                setFormResult(FormDialogResult.accept(getForm().getBinder().getBean()));
+                withResult(DialogResult.accept(getForm().getBinder().getBean()));
             });
 
             withButtonRight(acceptButton);
@@ -108,7 +100,7 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
             if (cancelButton != null) this.removeComponent(cancelButton);
 
             cancelButton = new Button("Cancel", event -> {
-                setFormResult(FormDialogResult.cancel());
+                withResult(DialogResult.cancel());
             });
 
             withButtonRight(cancelButton);
@@ -123,7 +115,7 @@ public abstract class FormDialog<MODEL> extends BaseDialog<FormDialog.FormDialog
         }
     }
 
-    protected Form<MODEL> getForm() {
-        return (Form<MODEL>)bodyComponent;
+    protected Form<VALUE> getForm() {
+        return (Form<VALUE>)bodyComponent;
     }
 }

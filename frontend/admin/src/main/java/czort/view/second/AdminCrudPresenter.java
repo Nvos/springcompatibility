@@ -1,5 +1,6 @@
 package czort.view.second;
 
+import com.googlecode.gentyref.TypeToken;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import czort.contract.CrudResourceContract;
@@ -19,12 +20,13 @@ import org.springframework.beans.BeanUtils;
 @SpringComponent
 public class AdminCrudPresenter extends CrudPresenter<AdminResponse, AdminCreateRequest, AdminUpdateRequest> {
     public AdminCrudPresenter(CrudResourceContract<AdminResponse, AdminCreateRequest, AdminUpdateRequest> crudClient) {
-        super(crudClient);
+        super(crudClient,
+                new TypeToken<CrudResourceContract<AdminResponse, AdminCreateRequest, AdminUpdateRequest>>() {});
     }
 
     @Override
     protected ReMapper<AdminResponse, AdminCreateRequest, AdminUpdateRequest> getReMapper() {
-        return new ReMapper<>(
+        return new ReMapper<AdminResponse, AdminCreateRequest, AdminUpdateRequest>(
                 AdminResponse::getId,
                 AdminCreateRequest::new,
                 model -> {
@@ -33,6 +35,6 @@ public class AdminCrudPresenter extends CrudPresenter<AdminResponse, AdminCreate
 
                     return update;
                 }
-        );
+        ) {};
     }
 }

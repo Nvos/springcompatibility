@@ -46,7 +46,7 @@ public class TestCrudView extends BaseView<CrudViewFragment<UserResponse, UserCr
 
     @Override
     public CrudViewFragment<UserResponse, UserCreateRequest, UserUpdateRequest> rootComponent() {
-        return new CrudViewFragment<>(crudPresenter)
+        return CrudViewFragment.instance(crudPresenter)
                 .withCreateDialog(userCreateDialogFormDialog)
                 .withUpdateDialog(userUpdateRequestFormDialog)
                 .withSection(ref -> {

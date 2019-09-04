@@ -1,17 +1,27 @@
 package czort.crud;
 
+import com.googlecode.gentyref.TypeToken;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Component;
 import czort.contract.CrudResourceContract;
 import czort.dialog.FormDialog;
+import czort.dialog.Result;
+import czort.form.Form;
+import czort.form.StandardForm;
 import czort.mvp.BasePresenter;
+import feign.FeignException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @ViewScope
 @SpringComponent
@@ -23,9 +33,14 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
 
     protected abstract ReMapper<MODEL, CREATE, UPDATE> getReMapper();
 
-    public CrudPresenter(CrudResourceContract<MODEL, CREATE, UPDATE> crudClient) {
+    public CrudPresenter(
+            CrudResourceContract<MODEL, CREATE, UPDATE> crudClient,
+            TypeToken<CrudResourceContract<MODEL, CREATE, UPDATE>> token
+    ) {
         this.crudClient = crudClient;
         this.reMapper = getReMapper();
+        String wtf = token.getType().getTypeName();
+        System.out.println(token.getType());
     }
 
     public MODEL create(CREATE params) {
@@ -49,8 +64,7 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
         MODEL current = find(id);
 
         FormDialog<UPDATE> dialog = view.openUpdateDialog(id, reMapper.getUpdateProvider().apply(current));
-
-        dialog.onResultChange(result -> result
+        dialog.withResultHandler(result -> result
                 .onAccept(value -> {
                     update(id, value);
                     view.getDataProvider().refreshAll();
@@ -64,19 +78,35 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
     }
 
     public void handleCreate() {
-        FormDialog<CREATE> dialog = view.openCreateDialog(reMapper.getCreateProvider().get());
-
-        dialog.onResultChange(result -> result
-                .onAccept(value -> {
-                    create(value);
-                    view.getDataProvider().refreshAll();
-
-                    dialog.closeWithoutPrompt();
-                })
-                .onCancel(cancelResult -> {
-                    dialog.close();
-
-                })
-        );
+        view.openCreateDialog(reMapper.getCreateProvider().get()).with(self -> self
+            .withResultHandler(result -> result
+            .onAccept(value -> {
+                createErrorHandlerFn.apply(value, this::create)
+                    .onError(error -> {
+                    // get Form from self
+                    // Set errors as needed
+                    })
+                    .onSuccess($ -> {
+                        view.getDataProvider().refreshAll();
+                        self.closeWithoutPrompt();
+                    });
+            })
+            .onCancel(cancelResult -> {
+                self.close();
+            })
+        ));
     }
+
+    private BiFunction<CREATE, Function<CREATE, MODEL>, ApiResult<MODEL>> createErrorHandlerFn = (params, createFn) -> {
+        try {
+            return ApiResult.success(createFn.apply(params));
+        } catch (FeignException ex) {
+            if (ex.status() >= 500) {
+                // Something's fucked, I guess gotta log this?
+                System.out.println("monkaS...");
+            }
+
+            return ApiResult.error();
+        }
+    };
 }

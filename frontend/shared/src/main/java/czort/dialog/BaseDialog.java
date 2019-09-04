@@ -5,10 +5,11 @@ import com.vaadin.ui.*;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public abstract class BaseDialog<FOOTER extends Footer> extends Window {
+public abstract class BaseDialog<VALUE, FOOTER extends Footer<VALUE>> extends Window implements Dialog {
 
     protected FOOTER footerComponent;
     protected HasComponents bodyComponent;
+    protected Consumer<DialogResult<VALUE>> resultHandler;
 
     private Consumer<FOOTER> withProvidedFooterComponent;
     private Consumer<HasComponents> withProvidedBodyComponent;
@@ -35,19 +36,38 @@ public abstract class BaseDialog<FOOTER extends Footer> extends Window {
         return this;
     }
 
-    public BaseDialog withSize(Size size) {
+//    public <T extends Dialog> BaseDialog<VALUE, FOOTER> with(
+//            Consumer<T> withSelfProvided
+//    ) {
+//        withSelfProvided.accept(this);
+//    }
+
+    public BaseDialog<VALUE, FOOTER> withResultHandler(Consumer<DialogResult<VALUE>> resultHandler) {
+        this.resultHandler = resultHandler;
+        return this;
+    }
+
+    public BaseDialog<VALUE, FOOTER> withResult(DialogResult<VALUE> result) {
+        if (resultHandler != null) {
+            resultHandler.accept(result);
+        }
+
+        return this;
+    }
+
+    public BaseDialog<VALUE, FOOTER> withSize(Size size) {
        this.currentSize = size;
 
         return this;
     }
 
-    public BaseDialog useFooterComponent(Consumer<FOOTER> withProvidedFooterComponent) {
+    public BaseDialog<VALUE, FOOTER> useFooterComponent(Consumer<FOOTER> withProvidedFooterComponent) {
         this.withProvidedFooterComponent = withProvidedFooterComponent;
 
         return this;
     }
 
-    public BaseDialog useBodyComponent(Consumer<HasComponents> withProvidedBodyComponent) {
+    public <BODY extends HasComponents> BaseDialog<VALUE, FOOTER> useBodyComponent(Consumer<BODY> withProvidedBodyComponent) {
         this.withProvidedBodyComponent = withProvidedBodyComponent;
 
         return this;
@@ -64,8 +84,8 @@ public abstract class BaseDialog<FOOTER extends Footer> extends Window {
         return getClass().getName() + "." + "title";
     }
 
-    protected FOOTER footerComponent() {
-        return (FOOTER) new BaseDialogFooter();
+    protected Footer footerComponent() {
+        return new BaseDialogFooter();
     }
 
     private BaseDialog buildFromRoot() {

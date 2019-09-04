@@ -49,7 +49,7 @@ public class SecondCrudView extends BaseView<CrudViewFragment<AdminResponse, Adm
 
     @Override
     public CrudViewFragment<AdminResponse, AdminCreateRequest, AdminUpdateRequest> rootComponent() {
-        return new CrudViewFragment<>(crudPresenter)
+        return CrudViewFragment.instance(crudPresenter)
                 .withCreateDialog(userCreateDialogFormDialog)
                 .withUpdateDialog(userUpdateRequestFormDialog)
                 .withSection(ref -> {

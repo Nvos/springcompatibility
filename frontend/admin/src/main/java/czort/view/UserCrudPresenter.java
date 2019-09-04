@@ -1,5 +1,6 @@
 package czort.view;
 
+import com.googlecode.gentyref.TypeToken;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import czort.contract.CrudResourceContract;
@@ -32,6 +33,6 @@ public class UserCrudPresenter extends CrudPresenter<UserResponse, UserCreateReq
     }
 
     public UserCrudPresenter(CrudResourceContract<UserResponse, UserCreateRequest, UserUpdateRequest> crudClient) {
-        super(crudClient);
+        super(crudClient, new TypeToken<CrudResourceContract<UserResponse, UserCreateRequest, UserUpdateRequest>>() {});
     }
 }
