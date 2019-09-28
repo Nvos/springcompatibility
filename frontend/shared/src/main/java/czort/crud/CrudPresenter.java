@@ -34,13 +34,10 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
     protected abstract ReMapper<MODEL, CREATE, UPDATE> getReMapper();
 
     public CrudPresenter(
-            CrudResourceContract<MODEL, CREATE, UPDATE> crudClient,
-            TypeToken<CrudResourceContract<MODEL, CREATE, UPDATE>> token
+            CrudResourceContract<MODEL, CREATE, UPDATE> crudClient
     ) {
         this.crudClient = crudClient;
         this.reMapper = getReMapper();
-        String wtf = token.getType().getTypeName();
-        System.out.println(token.getType());
     }
 
     public MODEL create(CREATE params) {

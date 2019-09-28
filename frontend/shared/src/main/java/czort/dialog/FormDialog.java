@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 @SpringComponent
 @PrototypeScope
-public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, FormDialog.FormDialogFooter> {
+public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, BaseDialogFooter<VALUE>> {
 
     private VALUE value;
 
@@ -45,16 +45,8 @@ public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, FormDialog.For
     }
 
     @Override
-    public FormDialog<VALUE> useFooterComponent(Consumer<FormDialog.FormDialogFooter> withProvidedFooterComponent) {
-        super.useFooterComponent(withProvidedFooterComponent);
-
-        return this;
-    }
-
-    @Override
-    public FormDialog<VALUE> useBodyComponent(Consumer<StandardForm<VALUE>> withProvidedBodyComponent) {
-        super.useBodyComponent(withProvidedBodyComponent);
-
+    public FormDialog<VALUE> withResultHandler(Consumer<DialogResult<VALUE>> resultHandler) {
+        this.resultHandler = resultHandler;
         return this;
     }
 
@@ -65,7 +57,7 @@ public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, FormDialog.For
 
     @Override
     protected HasComponents bodyComponent() {
-        return bodyComponent(value);
+        return bodyComponent(value).build();
     }
 
     public void closeWithoutPrompt() {
@@ -80,14 +72,11 @@ public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, FormDialog.For
         private Button cancelButton;
         protected FormDialog<VALUE> dialog;
 
-        public FormDialogFooter(FormDialog<VALUE> dialog) {
-            super(dialog);
-        }
-
         public FormDialogFooter withAcceptButton() {
             if (acceptButton != null) this.removeComponent(acceptButton);
 
             acceptButton = new Button("Accept", event -> {
+                boolean isValid = getForm().getBinder().isValid();
                 withResult(DialogResult.accept(getForm().getBinder().getBean()));
             });
 

@@ -16,7 +16,7 @@ public abstract class BaseDialog<VALUE, FOOTER extends Footer<VALUE>> extends Wi
 
     private Size currentSize = Size.MEDIUM;
 
-    public Window open() {
+    public BaseDialog<VALUE, FOOTER> open() {
         if (!this.isAttached()) {
             buildFromRoot();
 
@@ -67,12 +67,6 @@ public abstract class BaseDialog<VALUE, FOOTER extends Footer<VALUE>> extends Wi
         return this;
     }
 
-    public <BODY extends HasComponents> BaseDialog<VALUE, FOOTER> useBodyComponent(Consumer<BODY> withProvidedBodyComponent) {
-        this.withProvidedBodyComponent = withProvidedBodyComponent;
-
-        return this;
-    }
-
     protected void onRootCreated(HasComponents bodyComponent, FOOTER footerComponent) {
         if(withProvidedBodyComponent != null) withProvidedBodyComponent.accept(bodyComponent);
         if(withProvidedFooterComponent != null) withProvidedFooterComponent.accept(footerComponent);
@@ -84,8 +78,8 @@ public abstract class BaseDialog<VALUE, FOOTER extends Footer<VALUE>> extends Wi
         return getClass().getName() + "." + "title";
     }
 
-    protected Footer footerComponent() {
-        return new BaseDialogFooter();
+    protected FOOTER footerComponent() {
+        return (FOOTER) new BaseDialogFooter<VALUE>();
     }
 
     private BaseDialog buildFromRoot() {

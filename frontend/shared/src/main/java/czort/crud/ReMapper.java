@@ -5,7 +5,7 @@ import com.vaadin.data.ValueProvider;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class ReMapper<MODEL, CREATE, UPDATE> {
+public class ReMapper<MODEL, CREATE, UPDATE> {
     private ValueProvider<MODEL, Long> idProvider;
     private Supplier<CREATE> createProvider;
     private Function<MODEL, UPDATE> updateProvider;

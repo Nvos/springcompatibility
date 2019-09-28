@@ -6,7 +6,6 @@ import com.vaadin.data.provider.DataProvider;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
-import czort.dialog.ActionDialog;
 import czort.dialog.FormDialog;
 import czort.grid.BaseGrid;
 import czort.mvp.Presenter;
@@ -24,7 +23,7 @@ import java.util.function.Consumer;
 
 @ViewScope
 @SpringComponent
-public abstract class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
+public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
     private Grid<MODEL> grid;
     private CrudPresenter<MODEL, CREATE, UPDATE> presenter;
     private FormDialog<CREATE> createDialog;
@@ -49,48 +48,19 @@ public abstract class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLa
 
         presenter.bootstrap(this);
         setSizeFull();
-
-        ResolvableType type = ResolvableType.forClass(this.getClass());
-
-        System.out.println(type);
-//        ResolvableType modelType = type.getGeneric(0).get
-//        Class<CREATE> createType = (Class<CREATE>) type.getGeneric(1).getRawClass();
-//        Class<UPDATE> updateType = (Class<UPDATE>)type.getGeneric(2).getRawClass();
-//
-//        System.out.println(modelType);
-//        Parametrized<MODEL, CREATE, UPDATE> parametrized = new Parametrized<MODEL, CREATE, UPDATE>() {};
-//        Class<MODEL> modelClass = parametrized.getModelType();
-//        System.out.println(parametrized);
     }
 
     public FormDialog<UPDATE> openUpdateDialog(Long id, UPDATE params) {
         return updateDialog
                 .withInitialValue(params)
-                .useFooterComponent(ref -> {
-                    ref.withAcceptButton();
-                    ref.withCancelButton();
-                })
-                .onResultChange(result -> result
-                        .onAccept(value -> {
-                            presenter.update(id, value);
-                            getDataProvider().refreshAll();
-
-                            updateDialog.closeWithoutPrompt();
-                        })
-                        .onCancel(cancelResult -> {
-                            updateDialog.close();
-                        })
-                )
+                .withResultHandler(System.out::println)
                 .open();
     }
 
     public FormDialog<CREATE> openCreateDialog(CREATE params) {
         return createDialog
                 .withInitialValue(params)
-                .useFooterComponent(ref -> {
-                    ref.withAcceptButton();
-                    ref.withCancelButton();
-                })
+                .withResultHandler(System.out::println)
                 .open();
     }
 
@@ -133,13 +103,13 @@ public abstract class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLa
     }
 
     public CrudViewFragment<MODEL, CREATE, UPDATE> withCreateDialog(FormDialog<CREATE> createDialog) {
-        this.createDialog = createDialog;
+        this.createDialog = (FormDialog<CREATE>) createDialog;
 
         return this;
     }
 
     public CrudViewFragment<MODEL, CREATE, UPDATE> withUpdateDialog(FormDialog<UPDATE> updateDialog) {
-        this.updateDialog = updateDialog;
+        this.updateDialog = (FormDialog<UPDATE>) updateDialog;
 
         return this;
     }

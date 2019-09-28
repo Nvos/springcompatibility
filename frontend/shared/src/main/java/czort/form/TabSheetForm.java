@@ -9,30 +9,43 @@ import java.util.function.Consumer;
 
 public class TabSheetForm<MODEL> extends TabSheet implements Form<MODEL> {
     private FormBinder<MODEL> binder;
-    private Map<String, Tab> tabFormMap = new HashMap<>();
-
-    private Component currentTab;
-    private Component previousTab;
+    private Map<String, Form<MODEL>> tabFormMap = new HashMap<>();
 
     public TabSheetForm(MODEL model, Class<MODEL> modelClass) {
         binder = new FormBinder<>(modelClass);
         binder.setBean(model);
         setSizeFull();
+    }
 
-        this.addSelectedTabChangeListener(it -> {
-            if(currentTab == null) currentTab = this.getSelectedTab();
-            else {
-                previousTab = currentTab;
-                currentTab = this.getSelectedTab();
-            }
-        });
+    public TabSheetForm(MODEL model) {
+        binder = new FormBinder<>((Class<MODEL>)model.getClass());
+        binder.setBean(model);
+        setSizeFull();
+    }
+
+    public TabSheetForm<MODEL> with(Consumer<TabSheetForm<MODEL>> withSelfProvided) {
+        withSelfProvided.accept(this);
+        return this;
+    }
+
+    public TabSheetForm<MODEL> setTabVisible(int index, boolean isVisible) {
+        Tab tab = getTab(index);
+        tab.setVisible(isVisible);
+        StandardForm<MODEL> form = (StandardForm<MODEL>)tabFormMap.get(tab.getCaption());
+        if (!isVisible) {
+            form.getFieldBindings().forEach(it -> it.getBinding().unbind());
+        } else {
+            form.getFieldBindings().forEach(it -> it.getBindingCreator().bind(it.getField().getId()));
+        }
+
+        return this;
     }
 
     public TabSheetForm<MODEL> withTab(String caption, Consumer<StandardForm<MODEL>> onTabCreate) {
         StandardForm<MODEL> form = new StandardForm<>(this.binder);
         form.setId(caption);
-        Tab tab = addTab(form, caption);
-        tabFormMap.put(caption, tab);
+        addTab(form, caption);
+        tabFormMap.put(caption, form);
         onTabCreate.accept(form);
 
         return this;
@@ -40,5 +53,11 @@ public class TabSheetForm<MODEL> extends TabSheet implements Form<MODEL> {
 
     public FormBinder<MODEL> getBinder() {
         return binder;
+    }
+
+    @Override
+    public Form<MODEL> build() {
+        tabFormMap.values().forEach(Form::build);
+        return this;
     }
 }

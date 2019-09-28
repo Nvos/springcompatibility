@@ -1,6 +1,6 @@
 package czort.request;
 
-public class UserCreateRequest {
+public class UserCreateRequest implements UserRequest {
     private String name;
     private String email;
 

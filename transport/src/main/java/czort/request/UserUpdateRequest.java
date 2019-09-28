@@ -1,6 +1,7 @@
 package czort.request;
 
-public class UserUpdateRequest {
+public class UserUpdateRequest implements UserRequest {
+    private int id;
     private String name;
     private String email;
 
@@ -18,6 +19,15 @@ public class UserUpdateRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public UserUpdateRequest setId(int id) {
+        this.id = id;
+        return this;
     }
 
     public UserUpdateRequest(String name, String email) {

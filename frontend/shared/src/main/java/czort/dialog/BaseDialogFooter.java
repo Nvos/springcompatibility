@@ -4,11 +4,10 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
-public class BaseDialogFooter<VALUE> extends HorizontalLayout implements Footer {
-    protected BaseDialog<VALUE, FormDialog.FormDialogFooter> dialog;
+public class BaseDialogFooter<VALUE> extends HorizontalLayout implements Footer<VALUE> {
+    protected BaseDialog<VALUE, Footer<VALUE>> dialog;
 
-    public BaseDialogFooter(BaseDialog<VALUE, FormDialog.FormDialogFooter> dialog) {
-        this.dialog = dialog;
+    public BaseDialogFooter() {
         setSizeFull();
         setMargin(true);
 
@@ -19,7 +18,6 @@ public class BaseDialogFooter<VALUE> extends HorizontalLayout implements Footer 
 
     public BaseDialogFooter withButtonRight(Button button) {
         addComponent(button, getComponentCount());
-        this.dialog.open();
         return this;
     }
 
