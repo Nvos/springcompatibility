@@ -5,7 +5,7 @@ import com.vaadin.data.Validator;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.TextField;
 
-public class TexFieldBinding<MODEL> extends FieldBinding<TextField, MODEL, String> {
+public class TexFieldBinding<MODEL> extends FieldBinding<TextField, MODEL, String, TexFieldBinding<MODEL>> {
     public TexFieldBinding(TextField textField, Binder.BindingBuilder<MODEL, String> binding) {
         super(textField, binding);
     }
@@ -22,30 +22,6 @@ public class TexFieldBinding<MODEL> extends FieldBinding<TextField, MODEL, Strin
 
     public TexFieldBinding<MODEL> withReadOnly(boolean isReadOnly) {
         field.setReadOnly(isReadOnly);
-        return this;
-    }
-
-    @Override
-    public TexFieldBinding<MODEL> asRequired() {
-        super.asRequired();
-        return this;
-    }
-
-    @Override
-    public TexFieldBinding<MODEL> withValidators(Validator<String>... validators) {
-        super.withValidators(validators);
-        return this;
-    }
-
-    @Override
-    public TexFieldBinding<MODEL> withValidator(Validator<String> validator) {
-        super.withValidator(validator);
-        return this;
-    }
-
-    @Override
-    public TexFieldBinding<MODEL> withCaption(String caption) {
-        super.withCaption(caption);
         return this;
     }
 }

@@ -3,13 +3,11 @@ package czort.form;
 import com.vaadin.data.Binder;
 import com.vaadin.data.HasValue;
 import com.vaadin.data.ValidationResult;
+import com.vaadin.data.converter.StringToFloatConverter;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.server.UserError;
 import com.vaadin.ui.*;
-import czort.form.field.FieldBinding;
-import czort.form.field.IntegerFieldBinding;
-import czort.form.field.LabelBinding;
-import czort.form.field.TexFieldBinding;
+import czort.form.field.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ public class FormColumn<MODEL> extends FormLayout {
         this.parent = parent;
     }
 
+    @SuppressWarnings("unchecked")
     public Component withComponent(AbstractComponent component) {
         FieldBinding fieldBinding = new FieldBinding<>(component, null);
         withFieldBinding(fieldBinding);
@@ -45,6 +44,17 @@ public class FormColumn<MODEL> extends FormLayout {
                 .withConverter(new StringToIntegerConverter("err"));
 
         IntegerFieldBinding<MODEL> fieldBinding = new IntegerFieldBinding<>(field, builder);
+        withFieldBinding(fieldBinding);
+
+        return fieldBinding;
+    }
+
+    public FloatFieldBinding<MODEL> withFloatField(String property) {
+        TextField field = defaultTextField(property);
+        Binder.BindingBuilder<MODEL, Float> builder = defaultTextBinding(field)
+                .withConverter(new StringToFloatConverter("err"));
+
+        FloatFieldBinding<MODEL> fieldBinding = new FloatFieldBinding<>(field, builder);
         withFieldBinding(fieldBinding);
 
         return fieldBinding;
@@ -93,7 +103,7 @@ public class FormColumn<MODEL> extends FormLayout {
         return builder;
     }
 
-    private FormColumn<MODEL> withFieldBinding(FieldBinding<? extends Component, MODEL, ?> fieldBinding) {
+    private FormColumn<MODEL> withFieldBinding(FieldBinding<? extends Component, MODEL, ?, ?> fieldBinding) {
         parent.setFieldBinding(fieldBinding.getField().getId(), fieldBinding);
         return this;
     }

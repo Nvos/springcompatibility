@@ -1,19 +1,15 @@
 package czort.form;
 
-import com.vaadin.data.Binder;
 import com.vaadin.ui.*;
 import czort.form.field.FieldBinding;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
-public class StandardForm<MODEL extends Object> extends VerticalLayout implements Form<MODEL>, HasComponents {
+public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, HasComponents {
     private FormBinder<MODEL> binder;
     private HorizontalLayout formColumns = new HorizontalLayout();
-    private final Map<String, FieldBinding<? extends Component, MODEL, ?>> CACHE = new HashMap<>();
+    private final Map<String, FieldBinding<? extends Component, MODEL, ?, ?>> CACHE = new HashMap<>();
 
 
     public StandardForm(FormBinder<MODEL> binder) {
@@ -29,6 +25,7 @@ public class StandardForm<MODEL extends Object> extends VerticalLayout implement
         addComponent(formColumns);
     }
 
+    @SuppressWarnings("unchecked")
     public StandardForm(MODEL model) {
         binder =  new FormBinder<>((Class<MODEL>)model.getClass());
         binder.setBean(model);
@@ -63,6 +60,11 @@ public class StandardForm<MODEL extends Object> extends VerticalLayout implement
         return this;
     }
 
+    @Override
+    public Optional<FieldBinding<? extends AbstractComponent, MODEL, ?, ?>> getFieldBindingById(String id) {
+        return Optional.ofNullable(CACHE.get(id));
+    }
+
     public Boolean isModelValid() {
         return getBinder().isValid();
     }
@@ -70,13 +72,13 @@ public class StandardForm<MODEL extends Object> extends VerticalLayout implement
 
     public Form<MODEL> setFieldBinding(
             String property,
-            FieldBinding<? extends Component, MODEL, ?> fieldBinding
+            FieldBinding<? extends Component, MODEL, ?, ?> fieldBinding
     ) {
         CACHE.put(property, fieldBinding);
         return this;
     }
 
-    public List<FieldBinding<? extends Component, MODEL, ?>> getFieldBindings() {
+    public List<FieldBinding<? extends Component, MODEL, ?, ?>> getFieldBindings() {
         return new ArrayList<>(CACHE.values());
     }
 }
