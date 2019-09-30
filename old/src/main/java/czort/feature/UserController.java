@@ -7,16 +7,29 @@ import czort.request.UserCreateRequest;
 import czort.request.UserUpdateRequest;
 import czort.response.CountResponse;
 import czort.response.UserResponse;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.validation.MessageInterpolatorFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.*;
 
 @Transactional
 @RequestMapping("/user")
-@RestController()
+@RestController
 public class UserController implements CrudResourceContract<UserResponse, UserCreateRequest, UserUpdateRequest> {
 
     private final UserRepository userRepository;
@@ -27,7 +40,7 @@ public class UserController implements CrudResourceContract<UserResponse, UserCr
     }
 
     @Override
-    public ResponseEntity<UserResponse> create(@RequestBody UserCreateRequest params) {
+    public ResponseEntity<UserResponse> create(@Valid @RequestBody UserCreateRequest params) {
         UserEntity entity = new UserEntity(
                 params.getName(),
                 params.getEmail()

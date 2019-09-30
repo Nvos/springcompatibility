@@ -8,6 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <properties>
+        <vaadin.plugin.version>8.4.1</vaadin.plugin.version>
+    </properties>
 
     <artifactId>admin</artifactId>
     <dependencies>
@@ -36,4 +39,25 @@
 <!--            </resource>-->
 <!--        </resources>-->
 <!--    </build>-->
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.plugin.version}</version>
+            <configuration>
+                <extraJvmArgs>-Xmx2G</extraJvmArgs>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>update-theme</goal>
+                        <goal>compile</goal>
+                        <!--                            <goal>compile-theme</goal>-->
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+    </build>
 </project>

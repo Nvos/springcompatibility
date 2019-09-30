@@ -1,5 +1,6 @@
 package czort.view;
 
+import com.google.common.collect.Lists;
 import com.googlecode.gentyref.TypeToken;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -24,7 +25,12 @@ public class UserPresenter extends CrudPresenter<UserResponse, UserCreateRequest
     protected ReMapper<UserResponse, UserCreateRequest, UserUpdateRequest> getReMapper() {
         return new ReMapper<>(
                 UserResponse::getId,
-                UserCreateRequest::new,
+                () -> {
+                    UserCreateRequest request = new UserCreateRequest();
+                    request.setItems(Lists.newArrayList("Value 1", "Value 2" , "Value 3", "Value 4"));
+
+                    return request;
+                    },
                 it -> new UserUpdateRequest()
         );
     }

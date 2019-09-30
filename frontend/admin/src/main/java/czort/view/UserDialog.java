@@ -6,11 +6,17 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import czort.dialog.FormDialog;
 import czort.form.Form;
+import czort.form.StandardForm;
 import czort.form.TabSheetForm;
 import czort.form.field.ControlledValidator;
+import czort.form.field.GridFieldBinding;
 import czort.form.field.TexFieldBinding;
 import czort.request.UserRequest;
 import org.vaadin.spring.annotation.PrototypeScope;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @PrototypeScope
 @SpringComponent
@@ -44,6 +50,49 @@ public class UserDialog<T extends UserRequest> extends FormDialog<T> {
             it.withTab("t2", form -> {
                 form.withColumn(column -> {
                     column.withTextField("email");
+                });
+            });
+
+            it.withTab("search", form -> {
+                form.withColumn(column -> {
+                    column.withLabel("1", "l");
+                    column.withLabel("2", "l");
+                    column.withLabel("3", "l");
+                    column.withLabel("4", "l");
+                    column.withLabel("5", "l");
+                    column.withLabel("6", "l");
+                    column.withLabel("7", "l");
+                    column.withLabel("8", "l");
+                    column.withLabel("9", "l");
+                    column.withLabel("0", "l");
+                    column.withLabel("11", "l");
+                    column.withLabel("12", "l");
+                    column.withComponent(new ItemSearch());
+                });
+            });
+
+            it.withTab("grid", form -> {
+                GridFieldBinding<T, String> binding = form.withGrid("items", (grid, field) -> {
+                    grid.withGridRef(ref -> {
+                        ref.addColumn(item -> item).setCaption("Value");
+                        ref.addItemClickListener(event -> {
+                            if (event.getItem() == null) return;
+
+                            List<String> newValue = new ArrayList<>(field.getValue());
+                            if (event.getMouseEventDetails().isAltKey()) {
+                                newValue.remove(event.getItem());
+                            } else if (event.getMouseEventDetails().isCtrlKey()) {
+                                newValue.add(event.getItem());
+                            }
+                            field.setValue(newValue);
+                        });
+                    });
+                });
+                form.withColumn(column -> {
+                   column.withComponent(new Button("New", event -> {
+                       T bean = form.getBinder().getBean();
+                       System.out.println(bean);
+                   }));
                 });
             });
         });

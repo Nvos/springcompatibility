@@ -1,8 +1,14 @@
 package czort.request;
 
+import czort.validator.UniqueLogin;
+
+import java.util.List;
+
 public class UserCreateRequest implements UserRequest {
+    @UniqueLogin
     private String name;
     private String email;
+    private List<String> items;
 
     public String getName() {
         return name;
@@ -18,6 +24,14 @@ public class UserCreateRequest implements UserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
     }
 
     public UserCreateRequest(String name, String email) {

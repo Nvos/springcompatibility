@@ -1,9 +1,23 @@
 package czort.request;
 
+import czort.validator.UniqueLogin;
+
+import java.util.List;
+
 public class UserUpdateRequest implements UserRequest {
     private int id;
+    @UniqueLogin
     private String name;
     private String email;
+    private List<String> items;
+
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
 
     public String getName() {
         return name;

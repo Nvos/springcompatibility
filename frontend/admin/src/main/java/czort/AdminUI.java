@@ -10,7 +10,7 @@ import com.vaadin.ui.VerticalLayout;
 import czort.view.UserView;
 
 @Title("Admin")
-@Theme("valo")
+@Theme("standard")
 @SpringUI(path = "admin")
 @SpringViewDisplay
 public class AdminUI extends RootUI {

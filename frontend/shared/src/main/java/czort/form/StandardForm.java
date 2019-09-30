@@ -1,9 +1,15 @@
 package czort.form;
 
+import com.vaadin.data.Binder;
 import com.vaadin.ui.*;
 import czort.form.field.FieldBinding;
+import czort.form.field.GridField;
+import czort.form.field.GridFieldBinding;
+import czort.grid.BaseGrid;
+import czort.view.GridComposer;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, HasComponents {
@@ -42,6 +48,29 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
         return this;
     }
 
+    public <VALUE> GridFieldBinding<MODEL, VALUE> withGrid(
+            String fieldName,
+            BiConsumer<GridComposer<VALUE>, GridField<VALUE>> withProvided
+    ) {
+        BaseGrid<VALUE> grid = new BaseGrid<>();
+        GridField<VALUE> field = new GridField<>(grid);
+        field.setId(fieldName);
+
+        GridComposer<VALUE> gridComposer = new GridComposer<>(grid);
+        withProvided.accept(gridComposer, field);
+
+        Binder.BindingBuilder<MODEL, List<VALUE>> builder = getBinder()
+                .forField(field)
+                .withNullRepresentation(new ArrayList<>());
+
+        GridFieldBinding<MODEL, VALUE> fieldBinding = new GridFieldBinding<>(field, builder);
+        setFieldBinding(fieldName, fieldBinding);
+
+        addComponentsAndExpand(field);
+
+        return fieldBinding;
+    }
+
     public FormBinder<MODEL> getBinder() {
         return binder;
     }
@@ -49,8 +78,8 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
     @Override
     public Form<MODEL> build() {
         getFieldBindings().forEach(it -> {
-            String property = it.getField().getId();
-            addComponent(it.getField());
+            if (!components.contains(it.getField()))
+                addComponent(it.getField());
 
             if(it.getBindingCreator() != null) {
                 it.bind();
