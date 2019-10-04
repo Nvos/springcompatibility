@@ -1,14 +1,9 @@
 package czort.form;
 
 import com.vaadin.data.*;
-import com.vaadin.server.UserError;
-import com.vaadin.ui.Component;
-import czort.form.field.FieldBinding;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FormBinder<MODEL> extends Binder<MODEL> {
     private boolean isDirty = false;

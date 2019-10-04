@@ -8,15 +8,22 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.TreeGrid;
 import czort.context_menu.BaseGridContextMenu;
+import czort.crud.CrudPresenter;
 import czort.grid.BaseGrid;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class GridComposer<MODEL> {
-    private Grid<MODEL> grid;
+    private final Grid<MODEL> grid;
+    private CrudPresenter<MODEL, ?, ?> presenter;
 
     public GridComposer(Grid<MODEL> grid) {
         this.grid = grid;
+    }
+    public GridComposer(Grid<MODEL> grid, CrudPresenter<MODEL, ?, ?> presenter) {
+        this.grid = grid;
+        this.presenter = presenter;
     }
 
     public GridComposer<MODEL> withGridRef(Consumer<BaseGrid<MODEL>> withProvidedGrid) {
@@ -43,6 +50,12 @@ public class GridComposer<MODEL> {
         Button button = new Button(VaadinIcons.MENU);
         this.grid.addComponentColumn(model -> button);
 
+        return this;
+    }
+
+    public GridComposer<MODEL> withDefaultDataProvider() {
+        Objects.requireNonNull(presenter, "Presenter cannot be null");
+        this.grid.setDataProvider(presenter.getDataProvider());
         return this;
     }
 

@@ -10,6 +10,7 @@ public class UserUpdateRequest implements UserRequest {
     private String name;
     private String email;
     private List<String> items;
+    private Integer value;
 
     public List<String> getItems() {
         return items;
@@ -50,5 +51,13 @@ public class UserUpdateRequest implements UserRequest {
     }
 
     public UserUpdateRequest() {
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
     }
 }

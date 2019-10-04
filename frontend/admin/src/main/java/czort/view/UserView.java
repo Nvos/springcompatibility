@@ -3,6 +3,7 @@ package czort.view;
 import com.vaadin.spring.annotation.SpringView;
 import czort.crud.CrudPresenter;
 import czort.crud.CrudViewFragment;
+import czort.crud.GenericCrudDataProvider;
 import czort.dialog.FormDialog;
 import czort.mvp.BaseView;
 import czort.request.UserCreateRequest;
@@ -17,20 +18,16 @@ public class UserView extends BaseView<CrudViewFragment<UserResponse, UserCreate
     private final CrudPresenter<UserResponse, UserCreateRequest, UserUpdateRequest> presenter;
     private final FormDialog<UserCreateRequest> createDialog;
     private final FormDialog<UserUpdateRequest> updateDialog;
-    private final UserDataProvider dataProvider;
 
     protected UserView(
             EventBus.ViewEventBus viewEventBus,
             CrudPresenter<UserResponse, UserCreateRequest, UserUpdateRequest> presenter,
             FormDialog<UserCreateRequest> createDialog,
-            FormDialog<UserUpdateRequest> updateDialog,
-            UserDataProvider dataProvider
-    ) {
+            FormDialog<UserUpdateRequest> updateDialog) {
         super(viewEventBus);
         this.presenter = presenter;
         this.createDialog = createDialog;
         this.updateDialog = updateDialog;
-        this.dataProvider = dataProvider;
     }
 
     @Override
@@ -42,7 +39,7 @@ public class UserView extends BaseView<CrudViewFragment<UserResponse, UserCreate
                     section.withButtonCreate(presenter::handleCreate);
                 })
                 .withGrid(grid -> {
-                    grid.withDataProvider(dataProvider);
+                    grid.withDefaultDataProvider();
                     grid.withGridRef(ref -> {
                         ref.addColumn(UserResponse::getName).setCaption("Name");
                         ref.addColumn(UserResponse::getEmail).setCaption("Email");

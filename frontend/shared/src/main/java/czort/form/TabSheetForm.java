@@ -1,9 +1,8 @@
 package czort.form;
 
 import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
-import czort.form.field.FieldBinding;
+import czort.form.field.BaseFieldComposer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,9 +64,9 @@ public class TabSheetForm<MODEL> extends TabSheet implements Form<MODEL> {
     }
 
     @Override
-    public Optional<FieldBinding<? extends AbstractComponent, MODEL, ?, ?>> getFieldBindingById(String id) {
+    public Optional<BaseFieldComposer<? extends AbstractComponent, MODEL, ?, ?>> getFieldBindingById(String id) {
         for (Form<MODEL> it : tabFormMap.values()) {
-            Optional<FieldBinding<? extends AbstractComponent, MODEL, ?, ?>> fieldBinding = it.getFieldBindingById(id);
+            Optional<BaseFieldComposer<? extends AbstractComponent, MODEL, ?, ?>> fieldBinding = it.getFieldBindingById(id);
             if (fieldBinding.isPresent()) {
                 return fieldBinding;
             }

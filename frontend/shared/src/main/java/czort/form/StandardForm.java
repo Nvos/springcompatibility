@@ -2,9 +2,9 @@ package czort.form;
 
 import com.vaadin.data.Binder;
 import com.vaadin.ui.*;
-import czort.form.field.FieldBinding;
+import czort.form.field.BaseFieldComposer;
 import czort.form.field.GridField;
-import czort.form.field.GridFieldBinding;
+import czort.form.field.GridFieldComposer;
 import czort.grid.BaseGrid;
 import czort.view.GridComposer;
 
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, HasComponents {
     private FormBinder<MODEL> binder;
     private HorizontalLayout formColumns = new HorizontalLayout();
-    private final Map<String, FieldBinding<? extends Component, MODEL, ?, ?>> CACHE = new HashMap<>();
+    private final Map<String, BaseFieldComposer<? extends Component, MODEL, ?, ?>> CACHE = new HashMap<>();
 
 
     public StandardForm(FormBinder<MODEL> binder) {
@@ -41,14 +41,14 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
 
     public StandardForm<MODEL> withColumn(Consumer<FormColumn<MODEL>> onColumnCreate) {
         FormColumn<MODEL> column = new FormColumn<>(this);
-        formColumns.addComponent(column);
+        formColumns.addComponent(column.getLayout());
 
         onColumnCreate.accept(column);
 
         return this;
     }
 
-    public <VALUE> GridFieldBinding<MODEL, VALUE> withGrid(
+    public <VALUE> GridFieldComposer<MODEL, VALUE> withGrid(
             String fieldName,
             BiConsumer<GridComposer<VALUE>, GridField<VALUE>> withProvided
     ) {
@@ -63,7 +63,7 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
                 .forField(field)
                 .withNullRepresentation(new ArrayList<>());
 
-        GridFieldBinding<MODEL, VALUE> fieldBinding = new GridFieldBinding<>(field, builder);
+        GridFieldComposer<MODEL, VALUE> fieldBinding = new GridFieldComposer<>(field, builder);
         setFieldBinding(fieldName, fieldBinding);
 
         addComponentsAndExpand(field);
@@ -77,20 +77,12 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
 
     @Override
     public Form<MODEL> build() {
-        getFieldBindings().forEach(it -> {
-            if (!components.contains(it.getField()))
-                addComponent(it.getField());
-
-            if(it.getBindingCreator() != null) {
-                it.bind();
-            }
-        });
-
+        getFieldBindings().forEach(BaseFieldComposer::bind);
         return this;
     }
 
     @Override
-    public Optional<FieldBinding<? extends AbstractComponent, MODEL, ?, ?>> getFieldBindingById(String id) {
+    public Optional<BaseFieldComposer<? extends AbstractComponent, MODEL, ?, ?>> getFieldBindingById(String id) {
         return Optional.ofNullable(CACHE.get(id));
     }
 
@@ -101,13 +93,13 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
 
     public Form<MODEL> setFieldBinding(
             String property,
-            FieldBinding<? extends Component, MODEL, ?, ?> fieldBinding
+            BaseFieldComposer<? extends Component, MODEL, ?, ?> baseFieldComposer
     ) {
-        CACHE.put(property, fieldBinding);
+        CACHE.put(property, baseFieldComposer);
         return this;
     }
 
-    public List<FieldBinding<? extends Component, MODEL, ?, ?>> getFieldBindings() {
+    public List<BaseFieldComposer<? extends Component, MODEL, ?, ?>> getFieldBindings() {
         return new ArrayList<>(CACHE.values());
     }
 }

@@ -13,6 +13,8 @@ import czort.mvp.BasePresenter;
 import feign.FeignException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,8 +30,12 @@ import java.util.function.Function;
 public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object, UPDATE extends Object>
         extends BasePresenter<CrudViewFragment<MODEL, CREATE, UPDATE>> {
 
+    @Autowired
+    private ApplicationContext context;
+
     private final CrudResourceContract<MODEL, CREATE, UPDATE> crudClient;
     private final ReMapper<MODEL, CREATE, UPDATE> reMapper;
+    private GenericCrudDataProvider<MODEL> dataProvider;
 
     protected abstract ReMapper<MODEL, CREATE, UPDATE> getReMapper();
 
@@ -38,6 +44,7 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
     ) {
         this.crudClient = crudClient;
         this.reMapper = getReMapper();
+        this.dataProvider = new GenericCrudDataProvider<>(this);
     }
 
     public MODEL create(CREATE params) {
@@ -50,6 +57,14 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
 
     public MODEL find(Long id) {
         return crudClient.find(id).getBody();
+    }
+
+    public Page<MODEL> findAll(Pageable pageable) {
+        return crudClient.findAll(pageable).getBody();
+    }
+
+    public int count() {
+        return crudClient.count().getBody().getCount();
     }
 
     public Page<MODEL> findAll(Pageable pageable, Map<String, String> filter) {
@@ -106,4 +121,8 @@ public abstract class CrudPresenter<MODEL extends Object, CREATE extends Object,
             return ApiResult.error();
         }
     };
+
+    public GenericCrudDataProvider<MODEL> getDataProvider() {
+        return dataProvider;
+    }
 }

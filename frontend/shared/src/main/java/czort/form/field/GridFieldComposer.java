@@ -1,14 +1,13 @@
 package czort.form.field;
 
 import com.vaadin.data.Binder;
-import com.vaadin.ui.TextField;
 
 import java.util.List;
 
-public class GridFieldBinding<MODEL, VALUE>
-        extends FieldBinding<GridField<VALUE>, MODEL, List<VALUE>, GridFieldBinding<MODEL, VALUE>> {
+public class GridFieldComposer<MODEL, VALUE>
+        extends BaseFieldComposer<GridField<VALUE>, MODEL, List<VALUE>, GridFieldComposer<MODEL, VALUE>> {
 
-    public GridFieldBinding(
+    public GridFieldComposer(
             GridField<VALUE> components,
             Binder.BindingBuilder<MODEL, List<VALUE>> bindingCreator
     ) {

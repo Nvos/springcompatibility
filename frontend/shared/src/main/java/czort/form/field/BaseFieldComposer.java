@@ -10,18 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class FieldBinding<
+public class BaseFieldComposer<
         FIELD extends AbstractComponent,
         MODEL,
         BINDING,
-        RETURN extends FieldBinding<FIELD, MODEL, BINDING, RETURN>>
+        RETURN extends BaseFieldComposer<FIELD, MODEL, BINDING, RETURN>>
 {
     protected final FIELD field;
     protected final Binder.BindingBuilder<MODEL, BINDING> bindingCreator;
     protected Binder.Binding<MODEL, BINDING> binding;
     protected List<ControlledValidator<BINDING>> validators = new ArrayList<>();
 
-    public FieldBinding(FIELD field, Binder.BindingBuilder<MODEL, BINDING> bindingCreator) {
+    public BaseFieldComposer(FIELD field, Binder.BindingBuilder<MODEL, BINDING> bindingCreator) {
         this.field = field;
         this.bindingCreator = bindingCreator;
     }
@@ -92,12 +92,15 @@ public class FieldBinding<
 
     @SuppressWarnings("unchecked")
     public RETURN bind() {
-        this.binding = bindingCreator.bind(field.getId());
+        if (binding == null && bindingCreator != null) {
+            this.binding = bindingCreator.bind(field.getId());
+        }
+
         return (RETURN) this;
     }
 
     @SuppressWarnings("unchecked")
-    public RETURN setValidationEnabled(boolean isEnabled) {
+    public RETURN withValidationEnabled(boolean isEnabled) {
         this.validators.forEach(it -> {
             it.setEnabled(isEnabled);
         });

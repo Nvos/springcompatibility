@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.googlecode.gentyref.TypeToken;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.annotation.ViewScope;
 import czort.contract.CrudResourceContract;
 import czort.crud.CrudPresenter;
@@ -13,7 +14,10 @@ import czort.request.UserRequest;
 import czort.request.UserUpdateRequest;
 import czort.response.UserResponse;
 
-@ViewScope
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+@UIScope
 @SpringComponent
 public class UserPresenter extends CrudPresenter<UserResponse, UserCreateRequest, UserUpdateRequest> {
 
@@ -33,5 +37,15 @@ public class UserPresenter extends CrudPresenter<UserResponse, UserCreateRequest
                     },
                 it -> new UserUpdateRequest()
         );
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("postConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("preDestroy");
     }
 }
