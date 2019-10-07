@@ -2,12 +2,15 @@ package czort.form.field;
 
 import com.vaadin.data.Binder;
 import com.vaadin.data.Validator;
+import com.vaadin.data.ValueProvider;
+import com.vaadin.server.Setter;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.AbstractComponent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class BaseFieldComposer<
@@ -92,8 +95,41 @@ public class BaseFieldComposer<
 
     @SuppressWarnings("unchecked")
     public RETURN bind() {
-        if (binding == null && bindingCreator != null) {
+        if (binding != null) {
+            throw new UnsupportedOperationException(
+                    String.format("Field %s is already bound", field.getId())
+            );
+        }
+        if (bindingCreator != null) {
             this.binding = bindingCreator.bind(field.getId());
+        }
+
+        return (RETURN) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public RETURN bind(String fieldName) {
+        if (binding != null) {
+            throw new UnsupportedOperationException(
+                    String.format("Field %s is already bound", field.getId())
+            );
+        }
+        if (bindingCreator != null) {
+            this.binding = bindingCreator.bind(fieldName);
+        }
+
+        return (RETURN) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public RETURN bind(ValueProvider<MODEL, BINDING> valueProvider, Setter<MODEL, BINDING> setter) {
+        if (binding != null) {
+            throw new UnsupportedOperationException(
+                    String.format("Field %s is already bound", field.getId())
+            );
+        }
+        if (bindingCreator != null) {
+            this.binding = bindingCreator.bind(valueProvider, setter);
         }
 
         return (RETURN) this;

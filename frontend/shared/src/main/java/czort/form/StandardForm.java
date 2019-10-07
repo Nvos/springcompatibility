@@ -1,6 +1,7 @@
 package czort.form;
 
 import com.vaadin.data.Binder;
+import com.vaadin.data.BinderValidationStatus;
 import com.vaadin.ui.*;
 import czort.form.field.BaseFieldComposer;
 import czort.form.field.GridField;
@@ -37,6 +38,23 @@ public class StandardForm<MODEL> extends VerticalLayout implements Form<MODEL>, 
         binder.setBean(model);
         formColumns.setSizeFull();
         addComponent(formColumns);
+    }
+
+    private Boolean isValid = true;
+    public StandardForm<MODEL> withOnValidationStatusChange(Consumer<Boolean> withValidationStatus) {
+        getBinder().validate();
+
+        getBinder().addValueChangeListener(event -> {
+            BinderValidationStatus<MODEL> validate = getBinder().validate();
+            Boolean currentIsValid = validate.isOk();
+
+            if (isValid != currentIsValid) {
+                isValid = currentIsValid;
+                withValidationStatus.accept(isValid);
+            }
+        });
+
+        return this;
     }
 
     public StandardForm<MODEL> withColumn(Consumer<FormColumn<MODEL>> onColumnCreate) {

@@ -13,6 +13,7 @@ public class CrudSplitViewFragment extends VerticalSplitPanel {
             CrudViewFragment<MODEL, CREATE, UPDATE> fragment
     ) {
         setFirstComponent(fragment);
+        fragment.setSizeFull();
 
         return this;
     }
@@ -21,6 +22,7 @@ public class CrudSplitViewFragment extends VerticalSplitPanel {
             CrudViewFragment<MODEL, CREATE, UPDATE> fragment
     ) {
         setSecondComponent(fragment);
+        fragment.setSizeFull();
 
         return this;
     }

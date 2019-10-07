@@ -79,6 +79,7 @@ public class CrudViewFragment<MODEL, CREATE, UPDATE> extends VerticalLayout {
         if (this.grid != null) this.removeComponent(this.grid);
 
         this.grid = new BaseGrid<>();
+        this.grid.setSizeFull();
         GridComposer<MODEL> composer = new GridComposer<>(this.grid, this.presenter);
 
         withProvidedGridComposer.accept(composer);

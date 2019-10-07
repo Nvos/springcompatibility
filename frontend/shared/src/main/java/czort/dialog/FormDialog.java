@@ -102,6 +102,14 @@ public abstract class FormDialog<VALUE> extends BaseDialog<VALUE, BaseDialogFoot
 
             return this;
         }
+
+        public Button getAcceptButton() {
+            return acceptButton;
+        }
+
+        public Button getCancelButton() {
+            return cancelButton;
+        }
     }
 
     protected Form<VALUE> getForm() {
